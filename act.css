@@ -84,6 +84,7 @@ header.site-header {
 }
 
 nav.site-nav ul {
+  background: rgba(15, 51, 80, 0.85);
   list-style: none;
   display: flex;
   gap: 36px;
@@ -102,9 +103,9 @@ nav.site-nav a:focus-visible {
 
 .nav-toggle {
   display: none;
-  background: none;
+  background: rgba(15, 51, 80, 0.85);
   border: 1px solid var(--line);
-  color: var(--text);
+  color: var(--text-dim);
   padding: 8px 12px;
   border-radius: 6px;
   font-family: var(--mono);
@@ -142,7 +143,7 @@ footer.site-footer {
     top: 100%;
     left: 0;
     right: 0;
-    background: var(--bg-panel);
+    background: rgba(15, 51, 80, 0.85);
     border-bottom: 1px solid var(--line);
     max-height: 0;
     overflow: hidden;

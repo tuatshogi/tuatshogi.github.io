@@ -72,11 +72,6 @@ function renderFooter(data) {
   footer.append(copy, contact);
   return footer;
 }
-function fixBodyWidth() {
-  document.body.style.maxWidth = document.documentElement.clientWidth + 'px';
-}
-window.addEventListener('resize', fixBodyWidth);
-
 async function loadPage(htmlPath) {
   const content = document.getElementById('content');
   try {
@@ -92,7 +87,6 @@ async function loadPage(htmlPath) {
     content.innerHTML = '<p>ページの読み込みに失敗しました。</p>';
     console.error(err);
   }
-  requestAnimationFrame(() => requestAnimationFrame(fixBodyWidth));
 }
 
 function buildPage(data) {
@@ -105,7 +99,6 @@ function buildPage(data) {
   wrap.append(content);
   wrap.appendChild(renderFooter(data));
   document.body.appendChild(wrap);
-  fixBodyWidth();
   loadPage('top.html')
 }
 
