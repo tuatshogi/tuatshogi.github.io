@@ -38,7 +38,6 @@ header.site-header {
   padding: 20px clamp(16px, 6vw, 80px);
   background: rgba(15, 51, 80, 0.85);
   color: #FFFFFF;
-  backdrop-filter: blur(8px);
 }
 
 /* 通常時はメニューを隠す（スマホ想定） */
@@ -141,8 +140,7 @@ footer.site-footer {
     top: 100%;
     left: 0;
     right: 0;
-    background: rgba(15, 51, 80, 0.85);
-    backdrop-filter: blur(8px);
+    background: rgb(15, 51, 80);
     max-height: 0;
     overflow: hidden;
     transition: max-height .3s ease;
