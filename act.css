@@ -39,7 +39,6 @@ header.site-header {
   background: rgba(15, 51, 80, 0.85);
   color: #FFFFFF;
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--line);
 }
 
 /* 通常時はメニューを隠す（スマホ想定） */
@@ -84,7 +83,6 @@ header.site-header {
 }
 
 nav.site-nav ul {
-  background: rgba(15, 51, 80, 0.85);
   list-style: none;
   display: flex;
   gap: 36px;
@@ -144,7 +142,7 @@ footer.site-footer {
     left: 0;
     right: 0;
     background: rgba(15, 51, 80, 0.85);
-    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(8px);
     max-height: 0;
     overflow: hidden;
     transition: max-height .3s ease;
