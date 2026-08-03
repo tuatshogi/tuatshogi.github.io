@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background: #0f3350;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: #f8faf8;
+    font-family: "Noto Sans JP", sans-serif;
+    line-height: 1.7;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+}
+
+@layer utilities {
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(15, 51, 80, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 51, 80, 0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+  }
+
+  .board-grid {
+    background-image:
+      linear-gradient(rgba(15, 51, 80, 0.38) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 51, 80, 0.38) 1px, transparent 1px);
+    background-size: calc(100% / 9) calc(100% / 9);
+    border-bottom: 1px solid rgba(15, 51, 80, 0.38);
+    border-right: 1px solid rgba(15, 51, 80, 0.38);
+  }
+
+  .shogi-piece {
+    width: clamp(76px, 12vw, 116px);
+    aspect-ratio: 0.86;
+    clip-path: polygon(50% 0, 88% 22%, 100% 100%, 0 100%, 12% 22%);
+    font-family: "Shippori Mincho", "Noto Serif JP", serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+  }
+
+  .shogi-piece__label {
+    position: absolute;
+    left: 50%;
+    top: 58%;
+    line-height: 1;
+    transform: translate(-50%, -50%);
+  }
+}

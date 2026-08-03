@@ -1,0 +1,147 @@
+import activityPhoto from "../../../20260709_180604.jpg";
+import tournamentPhoto from "../../../20260524_191148.jpg";
+import campusMap from "../../../cumpasmap.jpg";
+import { siteConfig } from "../../data/siteConfig";
+
+const entrySections = [
+  {
+    title: "新入生の方へ",
+    body: "新入生の皆さん、入学おめでとうございます。当将棋部には、全国大会を目指す人から趣味として将棋を楽しむ人まで、さまざまな部員がいます。初心者から有段者まで大歓迎です。",
+  },
+  {
+    title: "活動場所",
+    body: "普段は小金井キャンパス欅寮近くのサークル棟B棟の部室で活動しています。",
+    campusMap: true,
+  },
+  {
+    title: "活動内容",
+    body: "毎週金曜日の活動日に部員同士で対局し、棋譜並べ・詰将棋・変則将棋の研究などを行っています。一年を通して大会や部内戦などのイベントもあります。",
+  },
+  { title: "部費", body: "部費はありません。" },
+  {
+    title: "入部・見学方法",
+    body: "見学や入部をご希望の方は、将棋部の公式X（旧Twitter）にDMでその旨をご連絡ください。みなさんの参加をお待ちしています。",
+    cta: true,
+  },
+  {
+    title: "その他",
+    body: "兼部は自由です。実際にほかの部・サークルと掛け持ちをしている部員も多くいます。",
+  },
+];
+
+const records = [
+  {
+    year: "2026年度",
+    items: [{ date: "2026.05.24", event: "春季団体戦C級2組", result: "準優勝", detail: "6勝1敗でC1級へ昇級", highlight: true }],
+  },
+  {
+    year: "2024年度",
+    items: [
+      { date: "2024.10.20", event: "秋季団体戦B2級", result: "5位", detail: "残留" },
+      { date: "2024.05.19", event: "春季団体戦B2級", result: "3位", detail: "2期連続" },
+    ],
+  },
+];
+
+function PageShell({ title, lead, children }) {
+  return (
+    <div className="bg-grid min-h-[60vh]">
+      <div className="mx-auto max-w-4xl px-5 py-16 md:px-8 md:py-24">
+        <p className="text-xs font-bold tracking-[0.28em] text-navy">TUAT SHOGI CLUB</p>
+        <h1 className="mt-3 border-b border-navy/20 pb-5 font-mincho text-4xl font-bold tracking-[0.08em] text-sumi md:text-5xl">{title}</h1>
+        {lead && <p className="mt-6 leading-8 text-ink/70">{lead}</p>}
+        <div className="mt-12 space-y-12">{children}</div>
+      </div>
+    </div>
+  );
+}
+
+function EntryPage() {
+  return (
+    <PageShell title="入部案内" lead="初心者・経験者を問わず、将棋を楽しみたい方を歓迎しています。">
+      {entrySections.map((section) => (
+        <section key={section.title}>
+          <h2 className="font-mincho text-2xl font-bold text-sumi md:text-3xl">{section.title}</h2>
+          <p className="mt-4 leading-8 text-ink/80">{section.body}</p>
+          {section.campusMap && (
+            <figure className="mt-6 overflow-hidden rounded-xl border border-line bg-white p-2 shadow-[0_12px_35px_rgba(15,51,80,0.10)] md:p-3">
+              <img
+                src={campusMap}
+                alt="小金井キャンパス内のサークル棟B棟までの案内図"
+                className="h-auto w-full rounded-lg"
+              />
+              <figcaption className="px-2 pb-2 pt-4 text-sm leading-7 text-ink/65 md:px-3">
+                赤線で示したサークル棟B棟に部室があります。地図は
+                <a
+                  href="https://www.tuat.ac.jp/outline/overview/access/koganei/campus_map/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mx-1 rounded font-medium text-navy underline decoration-navy/30 underline-offset-4 hover:decoration-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy"
+                >
+                  東京農工大学 小金井キャンパスマップ
+                  <span className="sr-only">（新しいタブで開く）</span>
+                </a>
+                を参照しています。
+              </figcaption>
+            </figure>
+          )}
+          {section.cta && (
+            <a href={siteConfig.xUrl} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-11 items-center rounded-md bg-navy px-6 py-3 font-bold text-white transition hover:bg-sumi focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-4">
+              XのDMで連絡する<span className="sr-only">（新しいタブで開く）</span>
+            </a>
+          )}
+        </section>
+      ))}
+    </PageShell>
+  );
+}
+
+function RecordPage() {
+  return (
+    <PageShell title="大会記録" lead="年度ごとの主な大会成績をご紹介します。">
+      {records.map((record) => (
+        <section key={record.year}>
+          <h2 className="font-mincho text-2xl font-bold text-sumi md:text-3xl">{record.year}</h2>
+          <ul className="mt-5 space-y-4">
+            {record.items.map((item) => (
+              <li key={`${item.date}-${item.event}`} className="rounded-xl border border-line bg-white p-5 md:flex md:items-center md:gap-6 md:p-6">
+                <time className="text-sm text-ink/60">{item.date}</time>
+                <div className="mt-2 flex-1 md:mt-0">
+                  <p className="font-bold text-sumi">{item.event}</p>
+                  <p className="mt-1 text-sm text-ink/70">{item.detail}</p>
+                </div>
+                <span className={`mt-3 inline-block rounded-full px-3 py-1 text-sm font-bold md:mt-0 ${item.highlight ? "bg-gold text-white" : "bg-navy/10 text-navy"}`}>{item.result}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </PageShell>
+  );
+}
+
+function IntroducePage() {
+  const sections = [
+    { title: "日頃の活動", image: activityPhoto, alt: "部室での活動風景", body: "毎週金曜日に活動しています。部室には棋書・盤駒・チェスクロックなど、将棋のための設備が整っています。" },
+    { title: "大会・部内戦・レーティング", image: tournamentPhoto, alt: "大会参加時の集合写真", body: "一年を通して、さまざまな大会や部内戦があります。大会への参加だけでなく、大学間交流や数か月かけて行う部内順位戦も楽しめます。" },
+  ];
+  return (
+    <PageShell title="活動紹介" lead="普段の部室での活動や、大会・部内戦の様子をご紹介します。">
+      {sections.map((section) => (
+        <section key={section.title}>
+          <h2 className="font-mincho text-2xl font-bold text-sumi md:text-3xl">{section.title}</h2>
+          <figure className="mt-6 overflow-hidden rounded-sm border-8 border-white bg-white shadow-[5px_8px_30px_rgba(15,23,42,0.14)]">
+            <img src={section.image} alt={section.alt} className="h-auto w-full object-cover" />
+          </figure>
+          <p className="mt-6 leading-8 text-ink/80">{section.body}</p>
+        </section>
+      ))}
+    </PageShell>
+  );
+}
+
+export default function ContentPage({ page }) {
+  if (page === "entry") return <EntryPage />;
+  if (page === "record") return <RecordPage />;
+  return <IntroducePage />;
+}

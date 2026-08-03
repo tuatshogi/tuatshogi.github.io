@@ -1,0 +1,23 @@
+{
+  "name": "tuat-shogi-club-site",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/restore-templates.mjs",
+    "dev": "vite",
+    "prebuild": "node scripts/restore-templates.mjs",
+    "build": "vite build && node scripts/deploy-root.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "autoprefixer": "latest",
+    "postcss": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "tailwindcss": "^3.4.17",
+    "vite": "latest"
+  },
+  "devDependencies": {}
+}
