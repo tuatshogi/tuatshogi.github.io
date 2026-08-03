@@ -32,7 +32,10 @@ const entrySections = [
 const records = [
   {
     year: "2026年度",
-    items: [{ date: "2026.05.24", event: "春季団体戦C級2組", result: "準優勝", detail: "6勝1敗でC1級へ昇級", highlight: true }],
+    items: [
+      { date: "2026.07.19", event: "東日本選抜トーナメント", result: "初戦敗退", detail: "対神奈川大学戦で敗北" },
+      { date: "2026.05.24", event: "春季団体戦C級2組", result: "準優勝", detail: "6勝1敗でC1級へ昇級", highlight: true },
+    ],
   },
   {
     year: "2024年度",
