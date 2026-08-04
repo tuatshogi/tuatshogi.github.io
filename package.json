@@ -4,11 +4,14 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "predev": "node scripts/restore-templates.mjs",
+    "prepare:site": "node scripts/restore-templates.mjs && node scripts/optimize-images.mjs && node scripts/prerender-pages.mjs",
+    "predev": "npm run prepare:site",
     "dev": "vite",
-    "prebuild": "node scripts/restore-templates.mjs",
-    "build": "vite build && node scripts/deploy-root.mjs",
-    "preview": "vite preview"
+    "prebuild": "npm run prepare:site",
+    "build": "vite build && node scripts/generate-seo-files.mjs && node scripts/deploy-root.mjs",
+    "preview": "vite preview",
+    "check:seo": "node scripts/check-seo.mjs",
+    "test": "npm run build && npm run check:seo"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
@@ -19,5 +22,7 @@
     "tailwindcss": "^3.4.17",
     "vite": "latest"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "sharp": "^0.35.3"
+  }
 }

@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const distRoot = resolve(projectRoot, "dist");
 const pages = ["index.html", "top.html", "entry.html", "record.html", "introduce.html"];
+const staticFiles = ["sitemap.xml", "robots.txt", "og-image.jpg", "organization-logo.png"];
 
 await rm(resolve(projectRoot, "assets"), { recursive: true, force: true });
 await mkdir(resolve(projectRoot, "assets"), { recursive: true });
@@ -13,8 +14,8 @@ await cp(resolve(distRoot, "assets"), resolve(projectRoot, "assets"), {
   force: true,
 });
 await Promise.all(
-  pages.map((page) =>
-    copyFile(resolve(distRoot, page), resolve(projectRoot, page)),
+  [...pages, ...staticFiles].map((file) =>
+    copyFile(resolve(distRoot, file), resolve(projectRoot, file)),
   ),
 );
 

@@ -10,15 +10,15 @@ export const siteConfig = {
   xUrl: "https://x.com/tuatshogiclub",
   cta: {
     visitDmHref: "https://x.com/tuatshogiclub",
-    scheduleHref: "introduce.html",
+    scheduleHref: "/introduce.html",
   },
 };
 
 export const navigationItems = [
-  { label: "トップ", href: "top.html", external: false },
-  { label: "入部案内", href: "entry.html", external: false },
-  { label: "大会記録", href: "record.html", external: false },
-  { label: "活動紹介", href: "introduce.html", external: false },
+  { label: "トップ", href: "/", external: false },
+  { label: "入部案内", href: "/entry.html", external: false },
+  { label: "大会記録", href: "/record.html", external: false },
+  { label: "活動紹介", href: "/introduce.html", external: false },
   {
     label: "X（旧Twitter）",
     href: "https://x.com/tuatshogiclub",

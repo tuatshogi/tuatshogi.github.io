@@ -43,7 +43,7 @@ export default function Header() {
     <header className="fixed inset-x-0 top-0 z-50 bg-navy/95 text-white shadow-sm backdrop-blur-sm">
       <div className="mx-auto flex h-[72px] max-w-site items-center gap-3 px-5 md:h-[96px] md:gap-5 md:px-8 lg:px-12">
         <a
-          href="top.html"
+          href="/"
           className="flex min-w-0 items-center gap-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white md:gap-4"
           aria-label={`${siteConfig.clubName} トップ`}
         >

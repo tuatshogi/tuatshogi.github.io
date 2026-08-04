@@ -4,12 +4,10 @@ import HeroSection from "./components/home/HeroSection";
 import AboutSection from "./components/home/AboutSection";
 import ContentPage from "./components/pages/ContentPage";
 
-const pageName = window.location.pathname.split("/").pop()?.toLowerCase();
-
-function PageContent() {
-  if (pageName === "entry.html") return <ContentPage page="entry" />;
-  if (pageName === "record.html") return <ContentPage page="record" />;
-  if (pageName === "introduce.html") return <ContentPage page="introduce" />;
+function PageContent({ page }) {
+  if (page === "entry") return <ContentPage page="entry" />;
+  if (page === "record") return <ContentPage page="record" />;
+  if (page === "introduce") return <ContentPage page="introduce" />;
 
   return (
     <>
@@ -19,12 +17,12 @@ function PageContent() {
   );
 }
 
-export default function App() {
+export default function App({ page = "home" }) {
   return (
     <div className="flex min-h-screen flex-col bg-warmWhite text-ink">
       <Header />
       <main className="flex-1 pt-[72px] md:pt-[96px]">
-        <PageContent />
+        <PageContent page={page} />
       </main>
       <Footer />
     </div>

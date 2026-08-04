@@ -8,10 +8,12 @@ ReactとTailwind CSSを使用し、藍色・生成り・墨色を基調とした
 
 | ページ | ファイル | 内容 |
 |---|---|---|
-| トップ | `index.html` / `top.html` | Hero、部の特徴、見学・活動紹介への導線 |
+| トップ | `index.html` | Hero、部の特徴、見学・活動紹介への導線 |
 | 入部案内 | `entry.html` | 活動場所、キャンパスマップ、部費、入部・見学方法 |
 | 大会記録 | `record.html` | 年度別の大会結果 |
 | 活動紹介 | `introduce.html` | 日頃の活動、大会・部内戦、活動写真 |
+
+旧URLの`top.html`は、トップページ`/`への互換転送ページです。
 
 ## 主な機能
 
@@ -23,6 +25,9 @@ ReactとTailwind CSSを使用し、藍色・生成り・墨色を基調とした
 - 小金井キャンパスの部室案内図
 - 年度別の大会結果表示
 - キーボード操作と`prefers-reduced-motion`への対応
+- 全4ページのビルド時プリレンダリング
+- canonical、OGP、Twitter Card、Organization構造化データ
+- `sitemap.xml`と`robots.txt`の自動生成
 - Viteなしでも配信できる静的ビルド
 
 ## 使用技術
@@ -46,15 +51,20 @@ mycraft/
 │   │   ├── layout/        # Header、Footer
 │   │   └── pages/         # 入部案内、大会記録、活動紹介
 │   └── data/
-│       └── siteConfig.js  # サイト共通設定と表示データ
+│       ├── siteConfig.js       # サイト共通設定と表示データ
+│       └── pageDefinitions.js  # URL、title、description、canonical
+├── public/                # OGP画像、構造化データ用ロゴ
 ├── templates/             # ビルド前のHTMLテンプレート
-├── scripts/               # ビルド前後の配置処理
+├── scripts/               # 画像生成、プリレンダリング、SEO検査、配置処理
 ├── assets/                # 静的配信用のビルド済みファイル
 ├── index.html             # 静的配信用トップ
-├── top.html
+├── top.html               # `/`への互換転送
 ├── entry.html
 ├── record.html
 ├── introduce.html
+├── sitemap.xml
+├── robots.txt
+├── og-image.jpg
 ├── package.json
 ├── vite.config.js
 └── tailwind.config.js
@@ -91,9 +101,11 @@ npm run build
 ビルドでは次の処理を行います。
 
 1. `templates/`から開発用HTMLを復元
-2. React、JSX、Tailwind CSSをViteでビルド
-3. 古い配信用`assets/`を削除
-4. 新しいHTML、JavaScript、CSS、画像をプロジェクト直下へ配置
+2. `sharp`でOGP画像と構造化データ用ロゴを生成
+3. Reactの各ページをHTMLへプリレンダリング
+4. React、JSX、Tailwind CSSをViteでビルド
+5. `sitemap.xml`と`robots.txt`を生成
+6. 新しいHTML、JavaScript、CSS、画像をプロジェクト直下へ配置
 
 ビルド後のファイルは、Viteを使わない通常の静的Webサーバーでも配信できます。
 
@@ -106,6 +118,14 @@ python3 -m http.server
 ```text
 http://localhost:8000/
 ```
+
+SEO出力の自動検査は次のコマンドで実行できます。
+
+```bash
+npm run check:seo
+```
+
+ビルドからSEO検査まで一括実行する場合は`npm test`を使用します。
 
 ## コンテンツの更新
 
@@ -125,6 +145,12 @@ src/data/siteConfig.js
 - ナビゲーション
 - HeroのCTAリンク
 - Aboutカードの文言
+
+ページごとのURL、title、description、canonicalは次で管理しています。
+
+```text
+src/data/pageDefinitions.js
+```
 
 ### トップページ
 
@@ -164,11 +190,12 @@ tailwind.config.js
 
 | ファイル | 用途 |
 |---|---|
-| `Designer.png` | ヘッダーのエンブレム |
-| `logo.png` | ヘッダーのロゴ |
+| `Designer.png` | ヘッダーのエンブレムと構造化データ用ロゴの生成元 |
+| `logo.png` | ヘッダーのロゴとOGP用ワードマークの生成元 |
 | `cumpasmap.jpg` | 入部案内のキャンパスマップ |
 | `20260709_180604.jpg` | 日頃の活動写真 |
 | `20260524_191148.jpg` | 大会参加時の写真 |
+| `src/assets/generated/og-background.png` | OGP画像の背景素材 |
 
 元画像を変更した場合も、必ず`npm run build`を実行してください。
 
