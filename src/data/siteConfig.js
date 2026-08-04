@@ -29,7 +29,6 @@ export const navigationItems = [
 export const features = [
   {
     id: "beginner-friendly",
-    number: "01",
     title: "初心者歓迎",
     description:
       "将棋を始めたばかりでも大丈夫。部員同士でルールや考え方を学び、経験を問わず気軽に参加できます。",
@@ -37,7 +36,6 @@ export const features = [
   },
   {
     id: "flexible-schedule",
-    number: "02",
     title: "柔軟な活動頻度",
     description:
       "授業やアルバイトを優先しながら、自分の予定に合わせて参加できます。無理なく続けられる活動スタイルです。",
@@ -45,7 +43,6 @@ export const features = [
   },
   {
     id: "playing-environment",
-    number: "03",
     title: "充実の対局環境",
     description:
       "日々の対局に加え、棋譜検討や研究も行えます。初心者から経験者まで、それぞれが成長できる環境です。",
