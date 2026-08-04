@@ -1,4 +1,4 @@
-import { mkdir, stat } from "node:fs/promises";
+import { copyFile, mkdir, stat } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
@@ -15,6 +15,8 @@ await Promise.all([
 const source = (file) => resolve(projectRoot, file);
 const generated = (file) => resolve(generatedRoot, file);
 const publicFile = (file) => resolve(publicRoot, file);
+
+await copyFile(source("favicon.ico"), publicFile("favicon.ico"));
 
 const organizationEmblem = await sharp(source("Designer.png"))
   .resize({

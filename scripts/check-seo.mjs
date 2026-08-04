@@ -10,6 +10,7 @@ import {
 } from "../src/data/pageDefinitions.js";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const stableFaviconPattern = /<link rel="icon" href="(?:\.\/|\/)favicon\.ico" type="image\/x-icon">/;
 const expectedBodyText = {
   home: "詰みは見える。",
   entry: "入部・見学方法",
@@ -34,6 +35,8 @@ for (const page of pageDefinitionList) {
   assert(html.includes(`<meta property="og:url" content="${page.canonicalUrl}">`));
   assert(html.includes(`<meta property="og:image" content="${ogImage.url}">`));
   assert(html.includes('<meta name="twitter:card" content="summary_large_image">'));
+  assert.match(html, stableFaviconPattern, `${page.outputFile}: stable favicon URL missing`);
+  assert(!html.includes("favicon-") && !html.includes("favicon.ico?"), `${page.outputFile}: unstable favicon URL remains`);
   assert(html.includes("<h1"), `${page.outputFile}: h1 missing`);
   assert(html.includes(expectedBodyText[page.id]), `${page.outputFile}: expected body text missing`);
   assert(!html.includes("top.html"), `${page.outputFile}: legacy top.html link remains`);
@@ -53,6 +56,8 @@ for (const page of pageDefinitionList) {
 const topHtml = await readFile(resolve(projectRoot, "top.html"), "utf8");
 assert(topHtml.includes('<meta http-equiv="refresh" content="0; url=/">'));
 assert(topHtml.includes(`<link rel="canonical" href="${siteOrigin}/">`));
+assert.match(topHtml, stableFaviconPattern, "top.html: stable favicon URL missing");
+assert(!topHtml.includes("favicon-") && !topHtml.includes("favicon.ico?"), "top.html: unstable favicon URL remains");
 assert(topHtml.includes('<a href="/">'));
 assert(!topHtml.includes("src/main.jsx"));
 
