@@ -24,7 +24,7 @@ const responsiveImageJobs = [
   {
     input: "top.png",
     outputName: "hero",
-    widths: [480, 768, 1024, 1254],
+    widths: [480, 640, 768, 1024, 1254],
     avifQuality: 70,
     webpQuality: 90,
   },
@@ -70,7 +70,7 @@ for (const job of responsiveImageJobs) {
   }
 }
 
-for (const width of [72, 144]) {
+for (const width of [72, 96, 144]) {
   await sharp(source("Designer.png"))
     .rotate()
     .resize({
@@ -84,7 +84,7 @@ for (const width of [72, 144]) {
     .toFile(responsive(`emblem-${width}.webp`));
 }
 
-for (const width of [160, 280, 560]) {
+for (const width of [160, 280, 320, 560]) {
   await sharp(source("logo.png"))
     .rotate()
     .resize({ width, withoutEnlargement: true })
@@ -152,5 +152,5 @@ await sharp(ogBackground)
 
 const ogStats = await stat(publicFile("og-image.jpg"));
 console.log(
-  `Optimized images generated: 33 responsive files; OGP image: ${Math.round(ogStats.size / 1024)} kB`,
+  `Optimized images generated: 37 responsive files; OGP image: ${Math.round(ogStats.size / 1024)} kB`,
 );

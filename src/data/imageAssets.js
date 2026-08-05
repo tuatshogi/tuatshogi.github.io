@@ -19,17 +19,21 @@ import campusMap640Webp from "../assets/generated/responsive/campus-map-640.webp
 import campusMap960Webp from "../assets/generated/responsive/campus-map-960.webp";
 import campusMap1280Webp from "../assets/generated/responsive/campus-map-1280.webp";
 import emblem72Webp from "../assets/generated/responsive/emblem-72.webp";
+import emblem96Webp from "../assets/generated/responsive/emblem-96.webp";
 import emblem144Webp from "../assets/generated/responsive/emblem-144.webp";
 import hero480Avif from "../assets/generated/responsive/hero-480.avif";
+import hero640Avif from "../assets/generated/responsive/hero-640.avif";
 import hero768Avif from "../assets/generated/responsive/hero-768.avif";
 import hero1024Avif from "../assets/generated/responsive/hero-1024.avif";
 import hero1254Avif from "../assets/generated/responsive/hero-1254.avif";
 import hero480Webp from "../assets/generated/responsive/hero-480.webp";
+import hero640Webp from "../assets/generated/responsive/hero-640.webp";
 import hero768Webp from "../assets/generated/responsive/hero-768.webp";
 import hero1024Webp from "../assets/generated/responsive/hero-1024.webp";
 import hero1254Webp from "../assets/generated/responsive/hero-1254.webp";
 import logo160Webp from "../assets/generated/responsive/logo-160.webp";
 import logo280Webp from "../assets/generated/responsive/logo-280.webp";
+import logo320Webp from "../assets/generated/responsive/logo-320.webp";
 import logo560Webp from "../assets/generated/responsive/logo-560.webp";
 
 const heroSizes = "(min-width: 1024px) 780px, (min-width: 768px) 690px, calc(100vw - 40px)";
@@ -45,12 +49,14 @@ export const heroImage = {
   sizes: heroSizes,
   avifSrcSet: createSrcSet([
     [hero480Avif, 480],
+    [hero640Avif, 640],
     [hero768Avif, 768],
     [hero1024Avif, 1024],
     [hero1254Avif, 1254],
   ]),
   webpSrcSet: createSrcSet([
     [hero480Webp, 480],
+    [hero640Webp, 640],
     [hero768Webp, 768],
     [hero1024Webp, 1024],
     [hero1254Webp, 1254],
@@ -117,6 +123,7 @@ export const emblemImage = {
   sizes: "(min-width: 768px) 72px, 48px",
   webpSrcSet: createSrcSet([
     [emblem72Webp, 72],
+    [emblem96Webp, 96],
     [emblem144Webp, 144],
   ]),
   fallback: emblem144Webp,
@@ -129,6 +136,7 @@ export const logoImage = {
   webpSrcSet: createSrcSet([
     [logo160Webp, 160],
     [logo280Webp, 280],
+    [logo320Webp, 320],
     [logo560Webp, 560],
   ]),
   fallback: logo560Webp,

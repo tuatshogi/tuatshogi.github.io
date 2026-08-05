@@ -190,7 +190,7 @@ function RecordPage() {
 function IntroducePage() {
   const sections = [
     { title: "日頃の活動", image: activityRoomImage, alt: "部室での活動風景", body: "毎週金曜日に活動しています。部室には棋書・盤駒・チェスクロックなど、将棋のための設備が整っています。", loading: "eager", fetchPriority: "high" },
-    { title: "大会・部内戦・レーティング", image: activityTournamentImage, alt: "大会参加時の集合写真", body: "一年を通して、さまざまな大会や部内戦があります。大会への参加だけでなく、大学間交流や数か月かけて行う部内順位戦も楽しめます。", loading: "lazy" },
+    { title: "大会・部内戦・レーティング", image: activityTournamentImage, alt: "大会参加時の集合写真", body: "一年を通して、さまざまな大会や部内戦があります。大会への参加だけでなく、大学間交流や数か月かけて行う部内順位戦も楽しめます。", loading: "lazy", fetchPriority: "low" },
   ];
   return (
     <PageShell title="活動紹介" lead="普段の部室での活動や、大会・部内戦の様子をご紹介します。">

@@ -120,6 +120,7 @@ assertImageAttributes(tournamentTag, "introduce.html: secondary activity image",
   height: "1080",
   loading: "lazy",
   decoding: "async",
+  fetchPriority: "low",
 });
 assert.equal(
   (introduceHtml.match(/<source\b[^>]*type="image\/avif"/g) || []).length,
@@ -188,15 +189,15 @@ const assetFiles = await readdir(assetsRoot);
 const imageAssetFiles = assetFiles.filter((fileName) =>
   [".avif", ".webp", ".jpg", ".jpeg", ".png"].includes(extname(fileName).toLowerCase()),
 );
-assert.equal(imageAssetFiles.length, 33, "assets/: expected exactly 33 responsive image files");
+assert.equal(imageAssetFiles.length, 37, "assets/: expected exactly 37 responsive image files");
 
 const expectedImageWidths = {
   "activity-room": { avif: [640, 960, 1280, 1600], webp: [640, 960, 1280, 1600] },
   "activity-tournament": { avif: [640, 960, 1280], webp: [640, 960, 1280] },
   "campus-map": { avif: [640, 960, 1280], webp: [640, 960, 1280] },
-  emblem: { webp: [72, 144] },
-  hero: { avif: [480, 768, 1024, 1254], webp: [480, 768, 1024, 1254] },
-  logo: { webp: [160, 280, 560] },
+  emblem: { webp: [72, 96, 144] },
+  hero: { avif: [480, 640, 768, 1024, 1254], webp: [480, 640, 768, 1024, 1254] },
+  logo: { webp: [160, 280, 320, 560] },
 };
 
 for (const [assetName, formats] of Object.entries(expectedImageWidths)) {
