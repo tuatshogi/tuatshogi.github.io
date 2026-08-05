@@ -1,5 +1,5 @@
 import { siteConfig } from "../../data/siteConfig";
-import boardVisualSrc from "../../../top.png";
+import { heroImage } from "../../data/imageAssets";
 
 function BoardVisual() {
   return (
@@ -7,15 +7,25 @@ function BoardVisual() {
       className="relative mx-auto aspect-square w-full max-w-[690px] lg:w-[150%] lg:justify-self-center"
       aria-hidden="true"
     >
-      <img
-        src={boardVisualSrc}
-        alt=""
-        width="2000"
-        height="2000"
-        decoding="async"
-        fetchPriority="high"
-        className="h-auto w-full"
-      />
+      <picture>
+        <source
+          type="image/avif"
+          srcSet={heroImage.avifSrcSet}
+          sizes={heroImage.sizes}
+        />
+        <img
+          src={heroImage.fallback}
+          srcSet={heroImage.webpSrcSet}
+          sizes={heroImage.sizes}
+          alt=""
+          width={heroImage.width}
+          height={heroImage.height}
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          className="h-auto w-full"
+        />
+      </picture>
     </div>
   );
 }

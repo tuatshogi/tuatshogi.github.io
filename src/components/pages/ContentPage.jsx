@@ -1,7 +1,39 @@
-import activityPhoto from "../../../20260709_180604.jpg";
-import tournamentPhoto from "../../../20260524_191148.jpg";
-import campusMap from "../../../cumpasmap.jpg";
+import {
+  activityRoomImage,
+  activityTournamentImage,
+  campusMapImage,
+} from "../../data/imageAssets";
 import { siteConfig } from "../../data/siteConfig";
+
+function ResponsiveImage({
+  image,
+  alt,
+  className,
+  loading,
+  fetchPriority,
+}) {
+  return (
+    <picture>
+      <source
+        type="image/avif"
+        srcSet={image.avifSrcSet}
+        sizes={image.sizes}
+      />
+      <img
+        src={image.fallback}
+        srcSet={image.webpSrcSet}
+        sizes={image.sizes}
+        alt={alt}
+        width={image.width}
+        height={image.height}
+        loading={loading}
+        decoding="async"
+        fetchPriority={fetchPriority}
+        className={className}
+      />
+    </picture>
+  );
+}
 
 const entrySections = [
   {
@@ -94,9 +126,10 @@ function EntryPage() {
           <p className="mt-4 leading-8 text-ink/80">{section.body}</p>
           {section.campusMap && (
             <figure className="mt-6 overflow-hidden rounded-xl border border-line bg-white p-2 shadow-[0_12px_35px_rgba(15,51,80,0.10)] md:p-3">
-              <img
-                src={campusMap}
+              <ResponsiveImage
+                image={campusMapImage}
                 alt="小金井キャンパス内のサークル棟B棟までの案内図"
+                loading="lazy"
                 className="h-auto w-full rounded-lg"
               />
               <figcaption className="px-2 pb-2 pt-4 text-sm leading-7 text-ink/65 md:px-3">
@@ -156,8 +189,8 @@ function RecordPage() {
 
 function IntroducePage() {
   const sections = [
-    { title: "日頃の活動", image: activityPhoto, alt: "部室での活動風景", body: "毎週金曜日に活動しています。部室には棋書・盤駒・チェスクロックなど、将棋のための設備が整っています。" },
-    { title: "大会・部内戦・レーティング", image: tournamentPhoto, alt: "大会参加時の集合写真", body: "一年を通して、さまざまな大会や部内戦があります。大会への参加だけでなく、大学間交流や数か月かけて行う部内順位戦も楽しめます。" },
+    { title: "日頃の活動", image: activityRoomImage, alt: "部室での活動風景", body: "毎週金曜日に活動しています。部室には棋書・盤駒・チェスクロックなど、将棋のための設備が整っています。", loading: "eager", fetchPriority: "high" },
+    { title: "大会・部内戦・レーティング", image: activityTournamentImage, alt: "大会参加時の集合写真", body: "一年を通して、さまざまな大会や部内戦があります。大会への参加だけでなく、大学間交流や数か月かけて行う部内順位戦も楽しめます。", loading: "lazy" },
   ];
   return (
     <PageShell title="活動紹介" lead="普段の部室での活動や、大会・部内戦の様子をご紹介します。">
@@ -165,7 +198,13 @@ function IntroducePage() {
         <section key={section.title}>
           <h2 className="font-mincho text-2xl font-bold text-sumi md:text-3xl">{section.title}</h2>
           <figure className="mt-6 overflow-hidden rounded-sm border-8 border-white bg-white shadow-[5px_8px_30px_rgba(15,23,42,0.14)]">
-            <img src={section.image} alt={section.alt} className="h-auto w-full object-cover" />
+            <ResponsiveImage
+              image={section.image}
+              alt={section.alt}
+              loading={section.loading}
+              fetchPriority={section.fetchPriority}
+              className="h-auto w-full object-cover"
+            />
           </figure>
           <p className="mt-6 leading-8 text-ink/80">{section.body}</p>
         </section>

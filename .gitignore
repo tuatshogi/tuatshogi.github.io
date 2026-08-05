@@ -3,6 +3,7 @@ node_modules/
 dist/
 .vite/
 coverage/
+src/assets/generated/responsive/
 
 # Local environment files
 .env
@@ -37,3 +38,7 @@ mycraft_backup_*.tar.gz
 screenshots/
 playwright-report/
 test-results/
+lhci_reports/
+quality-results/
+.lighthouseci/
+C:\\Users\\*/
