@@ -20,7 +20,7 @@ function PageContent({ page }) {
 export default function App({ page = "home" }) {
   return (
     <div className="flex min-h-screen flex-col bg-warmWhite text-ink">
-      <Header />
+      <Header currentPage={page} />
       <main className="flex-1 pt-[72px] md:pt-[96px]">
         <PageContent page={page} />
       </main>

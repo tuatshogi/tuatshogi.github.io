@@ -1,11 +1,6 @@
-import emblemSrc from "../../Designer.png";
-import logoSrc from "../../logo.png";
-
 export const siteConfig = {
   universityName: "東京農工大学",
   clubName: "東京農工大学将棋部",
-  emblemSrc,
-  logoSrc,
   contactEmail: "tuatshogi@gmail.com",
   xUrl: "https://x.com/tuatshogiclub",
   cta: {
@@ -15,10 +10,10 @@ export const siteConfig = {
 };
 
 export const navigationItems = [
-  { label: "トップ", href: "/", external: false },
-  { label: "入部案内", href: "/entry.html", external: false },
-  { label: "大会記録", href: "/record.html", external: false },
-  { label: "活動紹介", href: "/introduce.html", external: false },
+  { label: "トップ", href: "/", page: "home", external: false },
+  { label: "入部案内", href: "/entry.html", page: "entry", external: false },
+  { label: "大会記録", href: "/record.html", page: "record", external: false },
+  { label: "活動紹介", href: "/introduce.html", page: "introduce", external: false },
   {
     label: "X（旧Twitter）",
     href: "https://x.com/tuatshogiclub",
