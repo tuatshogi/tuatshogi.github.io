@@ -1,0 +1,156 @@
+[
+  {
+    "tag": "header",
+    "text": "トップ入部案内大会記録活動紹介X（旧Twitter）（新しいタブで開く）MENU",
+    "box": {
+      "x": 0,
+      "y": 0,
+      "width": 375,
+      "height": 72,
+      "top": 0,
+      "right": 375,
+      "bottom": 72,
+      "left": 0
+    }
+  },
+  {
+    "tag": "main",
+    "text": "TUAT SHOGI CLUB入部案内初心者・経験者を問わず、将棋を楽しみたい方",
+    "box": {
+      "x": 0,
+      "y": 0,
+      "width": 375,
+      "height": 1959,
+      "top": 0,
+      "right": 375,
+      "bottom": 1959,
+      "left": 0
+    }
+  },
+  {
+    "tag": "h1",
+    "text": "入部案内",
+    "box": {
+      "x": 20,
+      "y": 164,
+      "width": 335,
+      "height": 61,
+      "top": 164,
+      "right": 355,
+      "bottom": 225,
+      "left": 20
+    }
+  },
+  {
+    "tag": "section",
+    "text": "新入生の方へ新入生の皆さん、入学おめでとうございます。当将棋部には、全国大会を目",
+    "box": {
+      "x": 20,
+      "y": 361,
+      "width": 335,
+      "height": 176,
+      "top": 361,
+      "right": 355,
+      "bottom": 537,
+      "left": 20
+    }
+  },
+  {
+    "tag": "section",
+    "text": "活動場所普段は小金井キャンパス欅寮近くのサークル棟B棟の部室で活動しています。赤",
+    "box": {
+      "x": 20,
+      "y": 585,
+      "width": 335,
+      "height": 531,
+      "top": 585,
+      "right": 355,
+      "bottom": 1116,
+      "left": 20
+    }
+  },
+  {
+    "tag": "figure",
+    "text": "赤線で示したサークル棟B棟に部室があります。地図は東京農工大学 小金井キャンパス",
+    "box": {
+      "x": 20,
+      "y": 721,
+      "width": 335,
+      "height": 395,
+      "top": 721,
+      "right": 355,
+      "bottom": 1116,
+      "left": 20
+    }
+  },
+  {
+    "tag": "section",
+    "text": "活動内容毎週金曜日の活動日に部員同士で対局し、棋譜並べ・詰将棋・変則将棋の研究な",
+    "box": {
+      "x": 20,
+      "y": 1164,
+      "width": 335,
+      "height": 176,
+      "top": 1164,
+      "right": 355,
+      "bottom": 1340,
+      "left": 20
+    }
+  },
+  {
+    "tag": "section",
+    "text": "部費部費はありません。",
+    "box": {
+      "x": 20,
+      "y": 1388,
+      "width": 335,
+      "height": 80,
+      "top": 1388,
+      "right": 355,
+      "bottom": 1468,
+      "left": 20
+    }
+  },
+  {
+    "tag": "section",
+    "text": "入部・見学方法見学や入部をご希望の方は、将棋部の公式X（旧Twitter）にDM",
+    "box": {
+      "x": 20,
+      "y": 1516,
+      "width": 335,
+      "height": 219,
+      "top": 1516,
+      "right": 355,
+      "bottom": 1735,
+      "left": 20
+    }
+  },
+  {
+    "tag": "section",
+    "text": "その他兼部は自由です。実際にほかの部・サークルと掛け持ちをしている部員も多くいま",
+    "box": {
+      "x": 20,
+      "y": 1783,
+      "width": 335,
+      "height": 112,
+      "top": 1783,
+      "right": 355,
+      "bottom": 1895,
+      "left": 20
+    }
+  },
+  {
+    "tag": "footer",
+    "text": "トップ入部案内大会記録活動紹介tuatshogi@gmail.com© 東京農工",
+    "box": {
+      "x": 0,
+      "y": 1959,
+      "width": 375,
+      "height": 424,
+      "top": 1959,
+      "right": 375,
+      "bottom": 2383,
+      "left": 0
+    }
+  }
+]

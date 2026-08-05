@@ -1,0 +1,114 @@
+[
+  {
+    "tag": "header",
+    "text": "トップ入部案内大会記録活動紹介X（旧Twitter）（新しいタブで開く）MENU",
+    "box": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 96,
+      "top": 0,
+      "right": 768,
+      "bottom": 96,
+      "left": 0
+    }
+  },
+  {
+    "tag": "main",
+    "text": "詰みは見える。将来は見えない。XのDMで見学を相談する（新しいタブで開く）活動紹",
+    "box": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 2202,
+      "top": 0,
+      "right": 768,
+      "bottom": 2202,
+      "left": 0
+    }
+  },
+  {
+    "tag": "section",
+    "text": "詰みは見える。将来は見えない。XのDMで見学を相談する（新しいタブで開く）活動紹",
+    "box": {
+      "x": 0,
+      "y": 96,
+      "width": 768,
+      "height": 1221,
+      "top": 96,
+      "right": 768,
+      "bottom": 1317,
+      "left": 0
+    }
+  },
+  {
+    "tag": "h1",
+    "text": "詰みは見える。将来は見えない。",
+    "box": {
+      "x": 32,
+      "y": 196,
+      "width": 672,
+      "height": 138,
+      "top": 196,
+      "right": 704,
+      "bottom": 334,
+      "left": 32
+    }
+  },
+  {
+    "tag": "section",
+    "text": "新入生大募集中!!!歩初心者歓迎将棋を始めたばかりでも大丈夫。部員同士でルールや",
+    "box": {
+      "x": 0,
+      "y": 1317,
+      "width": 768,
+      "height": 885,
+      "top": 1317,
+      "right": 768,
+      "bottom": 2202,
+      "left": 0
+    }
+  },
+  {
+    "tag": "header",
+    "text": "新入生大募集中!!!",
+    "box": {
+      "x": 48,
+      "y": 1446,
+      "width": 672,
+      "height": 48,
+      "top": 1446,
+      "right": 720,
+      "bottom": 1494,
+      "left": 48
+    }
+  },
+  {
+    "tag": "ul",
+    "text": "歩初心者歓迎将棋を始めたばかりでも大丈夫。部員同士でルールや考え方を学び、経験を",
+    "box": {
+      "x": 32,
+      "y": 1558,
+      "width": 704,
+      "height": 532,
+      "top": 1558,
+      "right": 736,
+      "bottom": 2090,
+      "left": 32
+    }
+  },
+  {
+    "tag": "footer",
+    "text": "トップ入部案内大会記録活動紹介tuatshogi@gmail.com© 東京農工",
+    "box": {
+      "x": 0,
+      "y": 2202,
+      "width": 768,
+      "height": 288,
+      "top": 2202,
+      "right": 768,
+      "bottom": 2490,
+      "left": 0
+    }
+  }
+]

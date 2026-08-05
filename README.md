@@ -2,7 +2,7 @@
 
 東京農工大学将棋部の公式Webサイトです。
 
-ReactとTailwind CSSを使用し、藍色・生成り・墨色を基調とした「和モダン × ミニマル」なデザインで構築しています。
+ReactとTailwind CSSを使用し、藍色・生成り・墨色を基調とした「和モダン × ミニマル」なデザインで構築しています。Reactはビルド時のHTML生成だけに使用し、ブラウザではモバイルメニュー用の最小JavaScriptだけを実行します。
 
 ## ページ一覧
 
@@ -26,6 +26,8 @@ ReactとTailwind CSSを使用し、藍色・生成り・墨色を基調とした
 - 年度別の大会結果表示
 - キーボード操作と`prefers-reduced-motion`への対応
 - 全4ページのビルド時プリレンダリング
+- AVIF・WebPのレスポンシブ画像配信
+- 使用文字だけに絞ったWebフォントのローカル配信
 - canonical、OGP、Twitter Card、Organization構造化データ
 - `sitemap.xml`と`robots.txt`の自動生成
 - Viteなしでも配信できる静的ビルド
@@ -44,8 +46,11 @@ ReactとTailwind CSSを使用し、藍色・生成り・墨色を基調とした
 mycraft/
 ├── src/
 │   ├── App.jsx
-│   ├── main.jsx
+│   ├── client.js         # CSS読込とモバイルメニュー制御
 │   ├── index.css
+│   ├── assets/
+│   │   ├── fonts/        # 配信用Webフォント
+│   │   └── generated/    # ビルド時に再生成する画像
 │   ├── components/
 │   │   ├── home/          # Hero、About、FeatureCard
 │   │   ├── layout/        # Header、Footer
@@ -72,7 +77,7 @@ mycraft/
 
 ## 開発環境の準備
 
-Node.js 20以上を推奨します。
+Node.js 20.19以上を使用します。CIでもNode.js 20系を使用します。
 
 ```bash
 npm install
@@ -101,9 +106,9 @@ npm run build
 ビルドでは次の処理を行います。
 
 1. `templates/`から開発用HTMLを復元
-2. `sharp`でOGP画像と構造化データ用ロゴを生成
+2. `sharp`でAVIF・WebPのレスポンシブ画像、OGP画像、構造化データ用ロゴを生成
 3. Reactの各ページをHTMLへプリレンダリング
-4. React、JSX、Tailwind CSSをViteでビルド
+4. JSX、Tailwind CSS、メニュー用JavaScriptをViteでビルド
 5. `sitemap.xml`と`robots.txt`を生成
 6. 新しいHTML、JavaScript、CSS、画像をプロジェクト直下へ配置
 
@@ -125,7 +130,14 @@ SEO出力の自動検査は次のコマンドで実行できます。
 npm run check:seo
 ```
 
-ビルドからSEO検査まで一括実行する場合は`npm test`を使用します。
+ビルド、SEO、成果物、HTMLを一括検査する場合は`npm test`を使用します。視覚・操作検査とLighthouseは用途に応じて個別に実行します。
+
+```bash
+npm test
+npm run test:visual
+npm run test:lighthouse:mobile
+npm run test:lighthouse:desktop
+```
 
 ## コンテンツの更新
 
@@ -195,9 +207,12 @@ tailwind.config.js
 | `cumpasmap.jpg` | 入部案内のキャンパスマップ |
 | `20260709_180604.jpg` | 日頃の活動写真 |
 | `20260524_191148.jpg` | 大会参加時の写真 |
+| `top.png` | Heroの正規原画 |
 | `src/assets/generated/og-background.png` | OGP画像の背景素材 |
 
-元画像を変更した場合も、必ず`npm run build`を実行してください。
+配信用画像は`src/assets/generated/responsive/`へ毎回再生成され、Viteがハッシュ付きファイルとして`assets/`へ配置します。生成途中の画像はGit管理しません。元画像を変更した場合も、必ず`npm run build`を実行してください。
+
+`src/assets/fonts/`には現在の4ページで使用する文字を含むNoto Sans JP 400–700とShippori Mincho 700のWOFF2サブセットがあります。本文へ新しい文字を追加した場合は、フォントの表示と視覚テストも確認してください。
 
 ## Gitへ反映するときの注意
 

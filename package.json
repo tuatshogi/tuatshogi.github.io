@@ -3,6 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "scripts": {
     "prepare:site": "node scripts/restore-templates.mjs && node scripts/optimize-images.mjs && node scripts/prerender-pages.mjs",
     "predev": "npm run prepare:site",
@@ -11,18 +14,30 @@
     "build": "vite build && node scripts/generate-seo-files.mjs && node scripts/deploy-root.mjs",
     "preview": "vite preview",
     "check:seo": "node scripts/check-seo.mjs",
-    "test": "npm run build && npm run check:seo"
+    "check:build": "node scripts/check-build.mjs",
+    "check:html": "html-validate index.html entry.html record.html introduce.html top.html",
+    "test:visual": "playwright test tests/visual.spec.js",
+    "test:lighthouse:mobile": "lhci autorun --config=./lighthouserc.mobile.json",
+    "test:lighthouse:desktop": "lhci autorun --config=./lighthouserc.desktop.json",
+    "test": "npm run build && npm run check:seo && npm run check:build && npm run check:html"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "latest",
-    "autoprefixer": "latest",
-    "postcss": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "tailwindcss": "^3.4.17",
-    "vite": "latest"
+    "@vitejs/plugin-react": "6.0.5",
+    "autoprefixer": "10.5.4",
+    "postcss": "8.5.25",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "tailwindcss": "3.4.19",
+    "vite": "8.2.0"
   },
   "devDependencies": {
-    "sharp": "^0.35.3"
+    "@lhci/cli": "0.15.1",
+    "@playwright/test": "1.62.1",
+    "html-validate": "10.17.0",
+    "sharp": "0.35.3"
+  },
+  "overrides": {
+    "tmp": "0.2.7",
+    "uuid": "11.1.1"
   }
 }

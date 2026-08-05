@@ -1,0 +1,60 @@
+name: Quality Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prepare report directory
+        run: mkdir -p quality-results
+
+      - name: Build and validate generated files
+        shell: bash -o pipefail {0}
+        run: npm test 2>&1 | tee quality-results/npm-test.log
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run visual and interaction tests
+        shell: bash -o pipefail {0}
+        run: npm run test:visual 2>&1 | tee quality-results/playwright.log
+
+      - name: Run mobile Lighthouse CI
+        shell: bash -o pipefail {0}
+        run: npm run test:lighthouse:mobile 2>&1 | tee quality-results/lighthouse-mobile.log
+
+      - name: Run desktop Lighthouse CI
+        shell: bash -o pipefail {0}
+        run: npm run test:lighthouse:desktop 2>&1 | tee quality-results/lighthouse-desktop.log
+
+      - name: Upload quality reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-reports
+          path: |
+            playwright-report/
+            test-results/
+            lhci_reports/
+            quality-results/
+          if-no-files-found: ignore
+          retention-days: 14
