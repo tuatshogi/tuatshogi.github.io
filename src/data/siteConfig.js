@@ -15,7 +15,7 @@ export const navigationItems = [
   { label: "大会記録", href: "/record.html", page: "record", external: false },
   { label: "活動紹介", href: "/introduce.html", page: "introduce", external: false },
   {
-    label: "X（旧Twitter）",
+    label: "Twitter（現X）",
     href: "https://x.com/tuatshogiclub",
     external: true,
   },

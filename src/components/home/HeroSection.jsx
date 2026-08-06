@@ -57,7 +57,7 @@ export default function HeroSection() {
               rel="noopener noreferrer"
               className="inline-flex min-h-11 items-center justify-center rounded-md bg-navy px-7 py-3.5 font-bold text-white shadow-lg shadow-navy/15 transition duration-200 hover:-translate-y-0.5 hover:bg-sumi hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-4 motion-reduce:transform-none motion-reduce:transition-none"
             >
-              XのDMで見学を相談する
+              Twitter(x)で見学を相談する
               <span className="sr-only">（新しいタブで開く）</span>
             </a>
             <a
