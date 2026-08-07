@@ -2,7 +2,7 @@
   font-family: "Noto Sans JP";
   font-style: normal;
   font-weight: 400 700;
-  font-display: block;
+  font-display: optional;
   src: url("./assets/fonts/noto-sans-jp-subset.woff2") format("woff2");
 }
 
@@ -10,7 +10,7 @@
   font-family: "Shippori Mincho";
   font-style: normal;
   font-weight: 700;
-  font-display: block;
+  font-display: optional;
   src: url("./assets/fonts/shippori-mincho-700-subset.woff2") format("woff2");
 }
 

@@ -50,12 +50,13 @@ if (!manifestReport.exists) {
   lines.push("### Failed assertions");
   for (const assertion of assertions) {
     const property = assertion.auditProperty ? `.${assertion.auditProperty}` : "";
+    const level = assertion.level === "error" ? "error" : "warning";
     const message =
-      `${assertion.url} ${assertion.auditId}${property}: ` +
+      `[${level}] ${assertion.url} ${assertion.auditId}${property}: ` +
       `actual=${formatValue(assertion.actual)}, expected=${formatValue(assertion.expected)} ` +
       `(${assertion.operator || "?"})`;
     lines.push(`- ${message}`);
-    process.stdout.write(`::error title=Lighthouse assertion failed::${message}\n`);
+    process.stdout.write(`::${level} title=Lighthouse assertion failed::${message}\n`);
   }
 } else {
   lines.push("All Lighthouse assertions passed.");
