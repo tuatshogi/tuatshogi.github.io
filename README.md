@@ -77,7 +77,7 @@ mycraft/
 
 ## 開発環境の準備
 
-Node.js 20.19以上を使用します。CIでもNode.js 20系を使用します。
+ローカルではNode.js 20.19以上、CIではNode.js 24系を使用します。
 
 ```bash
 npm install
