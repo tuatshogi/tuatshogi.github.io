@@ -60,7 +60,11 @@ jobs:
 
       - name: Fail if Lighthouse assertions failed
         if: steps.lighthouse-mobile.outcome == 'failure' || steps.lighthouse-desktop.outcome == 'failure'
-        run: exit 1
+        run: |
+          echo "Mobile Lighthouse outcome: ${{ steps.lighthouse-mobile.outcome }}"
+          echo "Desktop Lighthouse outcome: ${{ steps.lighthouse-desktop.outcome }}"
+          echo "::error title=Lighthouse status::mobile=${{ steps.lighthouse-mobile.outcome }}, desktop=${{ steps.lighthouse-desktop.outcome }}"
+          exit 1
 
       - name: Upload quality reports
         if: always()
