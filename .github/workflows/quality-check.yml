@@ -34,9 +34,21 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Run visual and interaction tests
+      - name: Run interaction tests
         shell: bash -o pipefail {0}
-        run: npm run test:visual 2>&1 | tee quality-results/playwright.log
+        run: npm run test:interaction 2>&1 | tee quality-results/interaction.log
+
+      - name: Run layout tests
+        shell: bash -o pipefail {0}
+        run: npm run test:layout 2>&1 | tee quality-results/layout.log
+
+      - name: Run visual regression tests
+        shell: bash -o pipefail {0}
+        run: npm run test:visual 2>&1 | tee quality-results/visual.log
+
+      - name: Run no-JS tests
+        shell: bash -o pipefail {0}
+        run: npm run test:no-js 2>&1 | tee quality-results/no-js.log
 
       - name: Run mobile Lighthouse CI
         id: lighthouse-mobile

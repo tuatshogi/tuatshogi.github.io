@@ -135,8 +135,18 @@ npm run check:seo
 ```bash
 npm test
 npm run test:visual
+npm run test:layout
+npm run test:interaction
+npm run test:no-js
 npm run test:lighthouse:mobile
 npm run test:lighthouse:desktop
+```
+
+意図したデザイン変更をVisual Testへ反映する場合は、更新後のPNGを確認してから次を実行します。
+
+```bash
+npm run test:visual:update
+git diff -- tests/visual.spec.js-snapshots
 ```
 
 ## コンテンツの更新
