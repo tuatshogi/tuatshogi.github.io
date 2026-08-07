@@ -172,7 +172,7 @@ function RecordPage() {
           <ul className="mt-5 space-y-4">
             {record.items.map((item) => (
               <li key={`${item.date}-${item.event}`} className="rounded-xl border border-line bg-white p-5 md:flex md:items-center md:gap-6 md:p-6">
-                <time className="text-sm text-ink/60">{item.date}</time>
+                <time className="text-sm text-ink/70">{item.date}</time>
                 <div className="mt-2 flex-1 md:mt-0">
                   <p className="font-bold text-sumi">{item.event}</p>
                   <p className="mt-1 text-sm text-ink/70">{item.detail}</p>

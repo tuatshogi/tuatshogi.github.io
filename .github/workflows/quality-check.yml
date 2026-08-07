@@ -39,12 +39,28 @@ jobs:
         run: npm run test:visual 2>&1 | tee quality-results/playwright.log
 
       - name: Run mobile Lighthouse CI
+        id: lighthouse-mobile
+        continue-on-error: true
         shell: bash -o pipefail {0}
         run: npm run test:lighthouse:mobile 2>&1 | tee quality-results/lighthouse-mobile.log
 
+      - name: Summarize mobile Lighthouse results
+        if: always()
+        run: node scripts/summarize-lighthouse.mjs mobile
+
       - name: Run desktop Lighthouse CI
+        id: lighthouse-desktop
+        continue-on-error: true
         shell: bash -o pipefail {0}
         run: npm run test:lighthouse:desktop 2>&1 | tee quality-results/lighthouse-desktop.log
+
+      - name: Summarize desktop Lighthouse results
+        if: always()
+        run: node scripts/summarize-lighthouse.mjs desktop
+
+      - name: Fail if Lighthouse assertions failed
+        if: steps.lighthouse-mobile.outcome == 'failure' || steps.lighthouse-desktop.outcome == 'failure'
+        run: exit 1
 
       - name: Upload quality reports
         if: always()
