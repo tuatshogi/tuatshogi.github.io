@@ -22,9 +22,10 @@
     "test:interaction": "playwright test tests/interaction.spec.js",
     "test:no-js": "playwright test tests/no-js.spec.js",
     "test:news": "node tests/news-test-site.mjs",
+    "test:data-order": "node tests/data-ordering.test.mjs",
     "test:lighthouse:mobile": "lhci autorun --config=./lighthouserc.mobile.json",
     "test:lighthouse:desktop": "lhci autorun --config=./lighthouserc.desktop.json",
-    "test": "npm run build && npm run check:seo && npm run check:build && npm run check:html"
+    "test": "npm run build && npm run check:seo && npm run check:build && npm run check:html && npm run test:data-order"
   },
   "dependencies": {
     "@vitejs/plugin-react": "6.0.5",

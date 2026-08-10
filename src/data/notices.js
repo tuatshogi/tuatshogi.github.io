@@ -103,13 +103,17 @@ export function validateNotices(items = notices) {
 
 validateNotices();
 
-export const publishedNotices = notices
-  .filter((notice) => notice.published)
-  .toSorted((a, b) =>
+export function sortNoticesByPublishedAt(items) {
+  return items.toSorted((a, b) =>
     Date.parse(b.publishedAt) - Date.parse(a.publishedAt) ||
     a.sortOrder - b.sortOrder ||
     a.id.localeCompare(b.id),
   );
+}
+
+export const publishedNotices = sortNoticesByPublishedAt(
+  notices.filter((notice) => notice.published),
+);
 
 export function getPublishedNotice(id) {
   return publishedNotices.find((notice) => notice.id === id);

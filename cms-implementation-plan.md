@@ -90,6 +90,8 @@ Cloudflare WorkerからGitHub Appを使用する。
     {
       "year": "2026年度（令和8年度）",
       "sourceUrl": "http://kantoshogi.web.fc2.com/kekka/R08/R08kekka.html",
+      "publishedAt": "2026-08-10T00:00:00Z",
+      "sortOrder": 0,
       "items": [
         {
           "date": "2026.05.24",
@@ -103,6 +105,8 @@ Cloudflare WorkerからGitHub Appを使用する。
   ]
 }
 ```
+
+大会記録年度は`publishedAt`の新しい順に自動表示し、同時刻の場合は`sortOrder`、年度名の順で安定させる。
 
 ### 4.3 お知らせ欄
 
