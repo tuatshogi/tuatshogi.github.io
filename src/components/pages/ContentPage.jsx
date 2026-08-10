@@ -4,7 +4,6 @@ import {
   campusMapImage,
 } from "../../data/imageAssets";
 import { siteConfig } from "../../data/siteConfig";
-import { records } from "../../data/records";
 
 function ResponsiveImage({
   image,
@@ -116,11 +115,15 @@ function EntryPage() {
   );
 }
 
-function RecordPage() {
+function RecordPage({ records }) {
   return (
     <PageShell title="大会記録">
-      {records.map((record) => (
-        <section key={record.year}>
+      <div data-cms-record-list className="space-y-12">
+        {records.length === 0 && (
+          <p className="rounded-xl border border-dashed border-line bg-white/60 px-5 py-8 text-center text-ink/65">現在、公開中の大会記録はありません。</p>
+        )}
+        {records.map((record) => (
+          <section key={record.year}>
           <div className="flex flex-wrap items-end justify-between gap-3">
             <h2 className="font-mincho text-2xl font-bold text-sumi md:text-3xl">{record.year}</h2>
             <a href={record.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-navy underline decoration-navy/30 underline-offset-4 hover:decoration-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy">
@@ -139,8 +142,9 @@ function RecordPage() {
               </li>
             ))}
           </ul>
-        </section>
-      ))}
+          </section>
+        ))}
+      </div>
     </PageShell>
   );
 }
@@ -171,8 +175,8 @@ function IntroducePage() {
   );
 }
 
-export default function ContentPage({ page }) {
+export default function ContentPage({ page, records = [] }) {
   if (page === "entry") return <EntryPage />;
-  if (page === "record") return <RecordPage />;
+  if (page === "record") return <RecordPage records={records} />;
   return <IntroducePage />;
 }

@@ -51,7 +51,7 @@ test("news index shows four published notices in published date order", async ({
     await expect(notices.nth(index)).toContainText(title);
     await expect(notices.nth(index).locator("time")).toBeVisible();
     await expect(notices.nth(index).getByRole("link", { name: "詳細を見る", exact: true }))
-      .toHaveAttribute("href", `/news/${["notice-newest", "notice-second", "notice-third", "notice-oldest"][index]}.html`);
+      .toHaveAttribute("href", `/news.html?id=${["notice-newest", "notice-second", "notice-third", "notice-oldest"][index]}`);
   }
   await expect(page.getByText("下書きのお知らせ")).toHaveCount(0);
 });

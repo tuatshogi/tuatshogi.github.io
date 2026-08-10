@@ -6,9 +6,9 @@ function PageShell({ title, lead, children }) {
     <div className="bg-grid min-h-[60vh]">
       <div className="mx-auto max-w-4xl px-5 py-16 md:px-8 md:py-24">
         <p className="text-xs font-bold tracking-[0.28em] text-navy">TUAT SHOGI CLUB</p>
-        <h1 className="mt-3 border-b border-navy/20 pb-5 font-mincho text-4xl font-bold tracking-[0.08em] text-sumi md:text-5xl">{title}</h1>
-        {lead && <p className="mt-6 leading-8 text-ink/70">{lead}</p>}
-        <div className="mt-12 space-y-12">{children}</div>
+        <h1 data-cms-news-title className="mt-3 border-b border-navy/20 pb-5 font-mincho text-4xl font-bold tracking-[0.08em] text-sumi md:text-5xl">{title}</h1>
+        {lead && <p data-cms-news-lead className="mt-6 leading-8 text-ink/70">{lead}</p>}
+        <div data-cms-news-content className="mt-12 space-y-12">{children}</div>
       </div>
     </div>
   );

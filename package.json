@@ -19,10 +19,10 @@
     "test:visual": "playwright test tests/visual.spec.js",
     "test:visual:update": "playwright test tests/visual.spec.js --update-snapshots",
     "test:layout": "playwright test tests/layout.spec.js",
-    "test:interaction": "playwright test tests/interaction.spec.js",
+    "test:interaction": "playwright test tests/interaction.spec.js tests/cms-sync.spec.js",
     "test:no-js": "playwright test tests/no-js.spec.js",
     "test:news": "node tests/news-test-site.mjs",
-    "test:data-order": "node tests/data-ordering.test.mjs",
+    "test:data-order": "node tests/data-ordering.test.mjs && node tests/cms-data.test.mjs",
     "test:lighthouse:mobile": "lhci autorun --config=./lighthouserc.mobile.json",
     "test:lighthouse:desktop": "lhci autorun --config=./lighthouserc.desktop.json",
     "test": "npm run build && npm run check:seo && npm run check:build && npm run check:html && npm run test:data-order"

@@ -1,3 +1,17 @@
+import {
+  isPublicationDue,
+  isSafeNoticeUrl,
+  noticeHref,
+  sortNoticesByPublishedAt,
+} from "./publication.js";
+
+export {
+  isPublicationDue,
+  isSafeNoticeUrl,
+  noticeHref,
+  sortNoticesByPublishedAt,
+} from "./publication.js";
+
 const idPattern = /^[A-Za-z0-9_-]+$/;
 
 // CMS同期前は空配列にして、未承認の内容が公開されない状態を初期値にする。
@@ -5,34 +19,6 @@ export const notices = [];
 
 function isValidDate(value) {
   return typeof value === "string" && Number.isFinite(Date.parse(value));
-}
-
-function isSafePath(value) {
-  if (typeof value !== "string" || !value.startsWith("/") || value.startsWith("//")) {
-    return false;
-  }
-
-  try {
-    const decoded = decodeURIComponent(value);
-    return !/[\u0000-\u001f\u007f\\]/.test(decoded) &&
-      !decoded.split(/[/?#]/).includes("..") &&
-      !decoded.split("/").includes(".");
-  } catch {
-    return false;
-  }
-}
-
-export function isSafeNoticeUrl(value) {
-  if (isSafePath(value)) return true;
-  if (typeof value !== "string" || /[\u0000-\u001f\u007f]/.test(value)) return false;
-
-  try {
-    const url = new URL(value);
-    return (url.protocol === "http:" || url.protocol === "https:") &&
-      !url.username && !url.password;
-  } catch {
-    return false;
-  }
 }
 
 function validateAttachment(attachment, noticeIndex, attachmentIndex) {
@@ -103,16 +89,8 @@ export function validateNotices(items = notices) {
 
 validateNotices();
 
-export function sortNoticesByPublishedAt(items) {
-  return items.toSorted((a, b) =>
-    Date.parse(b.publishedAt) - Date.parse(a.publishedAt) ||
-    a.sortOrder - b.sortOrder ||
-    a.id.localeCompare(b.id),
-  );
-}
-
 export const publishedNotices = sortNoticesByPublishedAt(
-  notices.filter((notice) => notice.published),
+  notices.filter((notice) => notice.published && isPublicationDue(notice.publishedAt)),
 );
 
 export function getPublishedNotice(id) {

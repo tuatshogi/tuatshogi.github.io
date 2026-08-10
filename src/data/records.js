@@ -1,3 +1,7 @@
+import { sortRecordsByPublishedAt } from "./publication.js";
+
+export { sortRecordsByPublishedAt } from "./publication.js";
+
 const legacyPublishedAt = "2026-08-10T00:00:00.000Z";
 
 const recordEntries = [
@@ -52,13 +56,5 @@ const recordEntries = [
     ],
   },
 ];
-
-export function sortRecordsByPublishedAt(items) {
-  return items.toSorted((a, b) =>
-    Date.parse(b.publishedAt) - Date.parse(a.publishedAt) ||
-    a.sortOrder - b.sortOrder ||
-    a.year.localeCompare(b.year, "ja"),
-  );
-}
 
 export const records = sortRecordsByPublishedAt(recordEntries);
