@@ -6,6 +6,7 @@ function BoardVisual() {
     <div
       className="relative mx-auto aspect-square w-full max-w-[690px] lg:w-[150%] lg:justify-self-center"
       aria-hidden="true"
+
     >
       <picture>
         <source

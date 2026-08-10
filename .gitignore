@@ -23,6 +23,7 @@ Thumbs.db
 *:Zone.Identifier
 .idea/
 .vscode/
+.opencode/
 *.swp
 *.swo
 *~

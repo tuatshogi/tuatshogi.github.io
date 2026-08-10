@@ -1,13 +1,8 @@
 import { expect, test } from "@playwright/test";
-import { pages, visitPage } from "./test-fixtures.js";
-
-const viewportCases = [
-  { id: "mobile", width: 375, height: 812 },
-  { id: "desktop", width: 1440, height: 900 },
-];
+import { pages, viewports, visitPage } from "./test-fixtures.js";
 
 for (const pageDefinition of pages) {
-  for (const viewport of viewportCases) {
+  for (const viewport of viewports) {
     test(`${pageDefinition.id} ${viewport.id} has a stable layout`, async ({ page }) => {
       await visitPage(page, pageDefinition, viewport);
 
@@ -36,7 +31,7 @@ for (const pageDefinition of pages) {
       const mobileNavigation = page.locator("#mobile-navigation");
       const menuButton = page.locator("[data-menu-toggle]");
 
-      if (viewport.id === "mobile") {
+      if (viewport.width < 768) {
         await expect(desktopNavigation).toBeHidden();
         await expect(mobileNavigation).toBeHidden();
         await expect(menuButton).toBeVisible();

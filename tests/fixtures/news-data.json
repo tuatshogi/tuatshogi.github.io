@@ -1,0 +1,69 @@
+[
+  {
+    "id": "notice-newest",
+    "title": "最新のお知らせ",
+    "body": "一行目の本文です。\n二行目の本文です。\n\n空行の後の段落です。\n本文URL https://example.com/news-info.",
+    "linkUrl": "https://example.com/related",
+    "published": true,
+    "publishedAt": "2026-08-01T09:00:00+09:00",
+    "sortOrder": 1,
+    "attachments": [
+      {
+        "id": "notice-newest-image",
+        "path": "/news-test-image.jpg",
+        "alt": "テスト用のお知らせ画像",
+        "mimeType": "image/jpeg",
+        "width": 4624,
+        "height": 3468,
+        "sizeBytes": 4134922,
+        "responsive": {}
+      }
+    ],
+    "createdAt": "2026-07-31T10:00:00+09:00",
+    "updatedAt": "2026-08-01T09:00:00+09:00"
+  },
+  {
+    "id": "notice-second",
+    "title": "次のお知らせ",
+    "body": "次のお知らせ本文です。",
+    "published": true,
+    "publishedAt": "2026-07-20T09:00:00+09:00",
+    "sortOrder": 1,
+    "attachments": [],
+    "createdAt": "2026-07-19T10:00:00+09:00",
+    "updatedAt": "2026-07-20T09:00:00+09:00"
+  },
+  {
+    "id": "notice-third",
+    "title": "三番目のお知らせ",
+    "body": "三番目のお知らせ本文です。",
+    "published": true,
+    "publishedAt": "2026-07-10T09:00:00+09:00",
+    "sortOrder": 1,
+    "attachments": [],
+    "createdAt": "2026-07-09T10:00:00+09:00",
+    "updatedAt": "2026-07-10T09:00:00+09:00"
+  },
+  {
+    "id": "notice-oldest",
+    "title": "四番目のお知らせ",
+    "body": "四番目のお知らせ本文です。",
+    "published": true,
+    "publishedAt": "2026-06-01T09:00:00+09:00",
+    "sortOrder": 1,
+    "attachments": [],
+    "createdAt": "2026-05-31T10:00:00+09:00",
+    "updatedAt": "2026-06-01T09:00:00+09:00"
+  },
+  {
+    "id": "notice-draft",
+    "title": "下書きのお知らせ",
+    "body": "公開されない下書き本文です。",
+    "published": false,
+    "publishedAt": "2026-08-10T09:00:00+09:00",
+    "sortOrder": 1,
+    "attachments": [],
+    "createdAt": "2026-08-09T10:00:00+09:00",
+    "updatedAt": "2026-08-10T09:00:00+09:00"
+  }
+]

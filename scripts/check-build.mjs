@@ -11,8 +11,15 @@ const pageDefinitions = [
   { file: "entry.html", page: "entry", text: "入部案内", currentHref: "/entry.html" },
   { file: "record.html", page: "record", text: "大会記録", currentHref: "/record.html" },
   { file: "introduce.html", page: "introduce", text: "活動紹介", currentHref: "/introduce.html" },
+  { file: "news.html", page: "news", text: "お知らせ一覧" },
 ];
-const htmlFiles = [...pageDefinitions.map(({ file }) => file), "top.html"];
+let noticeFiles = [];
+try {
+  noticeFiles = (await readdir(resolve(projectRoot, "news"))).map((file) => `news/${file}`);
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+}
+const htmlFiles = [...pageDefinitions.map(({ file }) => file), "top.html", ...noticeFiles];
 const referencedAssets = new Set();
 
 function isExternalReference(value) {
@@ -81,10 +88,12 @@ for (const page of pageDefinitions) {
   assert.match(html, /<h1[\s>]/, `${page.file}: h1 is missing`);
   assert(html.includes(page.text), `${page.file}: expected prerendered text is missing`);
   assert(!/<link\b[^>]*rel="preload"[^>]*as="image"/i.test(html), `${page.file}: image preload remains`);
-  assert(
-    html.includes(`href="${page.currentHref}" aria-current="page"`),
-    `${page.file}: current navigation item is not exposed`,
-  );
+  if (page.currentHref) {
+    assert(
+      html.includes(`href="${page.currentHref}" aria-current="page"`),
+      `${page.file}: current navigation item is not exposed`,
+    );
+  }
 
   for (const [tag] of html.matchAll(/<img\b[^>]*>/gi)) {
     assert.match(tag, /\bwidth="\d+"/i, `${page.file}: image width is missing: ${tag}`);

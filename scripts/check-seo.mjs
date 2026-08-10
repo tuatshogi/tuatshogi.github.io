@@ -16,16 +16,25 @@ const expectedBodyText = {
   entry: "入部・見学方法",
   introduce: "日頃の活動",
   record: "2026年度（令和8年度）",
+  news: "お知らせ一覧",
 };
+
+function escapeHtml(value) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
 
 for (const page of pageDefinitionList) {
   const html = await readFile(resolve(projectRoot, page.outputFile), "utf8");
 
   assert(!html.includes("<!--ssr-outlet-->"), `${page.outputFile}: SSR outlet remains`);
   assert.match(html, /<div id="root"[^>]*>\s*</, `${page.outputFile}: root has no prerendered markup`);
-  assert(html.includes(`<title>${page.title}</title>`), `${page.outputFile}: title mismatch`);
+  assert(html.includes(`<title>${escapeHtml(page.title)}</title>`), `${page.outputFile}: title mismatch`);
   assert(
-    html.includes(`<meta name="description" content="${page.description}">`),
+    html.includes(`<meta name="description" content="${escapeHtml(page.description)}">`),
     `${page.outputFile}: description mismatch`,
   );
   assert(
@@ -38,7 +47,8 @@ for (const page of pageDefinitionList) {
   assert.match(html, stableFaviconPattern, `${page.outputFile}: stable favicon URL missing`);
   assert(!html.includes("favicon-") && !html.includes("favicon.ico?"), `${page.outputFile}: unstable favicon URL remains`);
   assert(html.includes("<h1"), `${page.outputFile}: h1 missing`);
-  assert(html.includes(expectedBodyText[page.id]), `${page.outputFile}: expected body text missing`);
+  const expectedText = expectedBodyText[page.id] ?? page.title.split("｜", 1)[0];
+  assert(html.includes(escapeHtml(expectedText)), `${page.outputFile}: expected body text missing`);
   assert(!html.includes("top.html"), `${page.outputFile}: legacy top.html link remains`);
   assert(!html.includes("/src/"), `${page.outputFile}: unbuilt source URL remains`);
 

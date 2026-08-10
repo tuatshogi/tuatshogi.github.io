@@ -1,13 +1,14 @@
-import { cp, copyFile, mkdir, rm } from "node:fs/promises";
+import { access, cp, copyFile, mkdir, rm } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const distRoot = resolve(projectRoot, "dist");
-const pages = ["index.html", "top.html", "entry.html", "record.html", "introduce.html"];
+const pages = ["index.html", "top.html", "entry.html", "record.html", "introduce.html", "news.html"];
 const staticFiles = ["sitemap.xml", "robots.txt", "og-image.jpg", "organization-logo.png"];
 
 await rm(resolve(projectRoot, "assets"), { recursive: true, force: true });
+await rm(resolve(projectRoot, "news"), { recursive: true, force: true });
 await mkdir(resolve(projectRoot, "assets"), { recursive: true });
 await cp(resolve(distRoot, "assets"), resolve(projectRoot, "assets"), {
   recursive: true,
@@ -18,5 +19,15 @@ await Promise.all(
     copyFile(resolve(distRoot, file), resolve(projectRoot, file)),
   ),
 );
+
+try {
+  await access(resolve(distRoot, "news"));
+  await cp(resolve(distRoot, "news"), resolve(projectRoot, "news"), {
+    recursive: true,
+    force: true,
+  });
+} catch (error) {
+  if (error.code !== "ENOENT") throw error;
+}
 
 console.log("Static site deployed to the project root.");

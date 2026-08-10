@@ -1,9 +1,11 @@
-import { copyFile } from "node:fs/promises";
+import { copyFile, rm } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const pages = ["index.html", "top.html", "entry.html", "record.html", "introduce.html"];
+const pages = ["index.html", "top.html", "entry.html", "record.html", "introduce.html", "news.html"];
+
+await rm(resolve(projectRoot, "news"), { recursive: true, force: true });
 
 await Promise.all(
   pages.map((page) =>

@@ -1,4 +1,4 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createServer } from "vite";
@@ -70,13 +70,17 @@ try {
 
   for (const page of pageDefinitionList) {
     const filePath = resolve(projectRoot, page.outputFile);
-    const template = await readFile(filePath, "utf8");
+    await mkdir(dirname(filePath), { recursive: true });
+    const templatePath = page.page === "notice"
+      ? resolve(projectRoot, "templates", "notice.html")
+      : filePath;
+    const template = await readFile(templatePath, "utf8");
 
     if (!template.includes("<!--seo-head-->") || !template.includes("<!--ssr-outlet-->")) {
       throw new Error(`${page.outputFile} is missing a prerender placeholder.`);
     }
 
-    const appHtml = render(page.id);
+    const appHtml = render(page.page ?? page.id, page.articleId);
     const html = template
       .replace("  <!--seo-head-->", buildSeoHead(page))
       .replace("<!--ssr-outlet-->", appHtml);

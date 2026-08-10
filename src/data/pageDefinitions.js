@@ -1,6 +1,8 @@
+import { publishedNotices } from "./notices.js";
+
 export const siteOrigin = "https://tuatshogi.github.io";
 
-export const pageDefinitions = {
+const staticPageDefinitions = {
   home: {
     id: "home",
     outputFile: "index.html",
@@ -33,6 +35,40 @@ export const pageDefinitions = {
     description:
       "東京農工大学将棋部の大会結果と戦績を年度別に掲載しています。関東大学将棋連盟の春季・秋季団体戦における順位、勝敗、昇級記録を確認できます。",
   },
+  news: {
+    id: "news",
+    page: "news",
+    outputFile: "news.html",
+    path: "/news.html",
+    title: "お知らせ｜東京農工大学将棋部",
+    description:
+      "東京農工大学将棋部からのお知らせを掲載しています。活動や大会に関する最新情報をご覧いただけます。",
+  },
+};
+
+function noticeDescription(notice) {
+  const summary = notice.body.replace(/\s+/g, " ").trim();
+  return `${summary || notice.title}`.slice(0, 160);
+}
+
+const noticePageDefinitions = Object.fromEntries(
+  publishedNotices.map((notice) => [
+    `notice:${notice.id}`,
+    {
+      id: `notice:${notice.id}`,
+      page: "notice",
+      articleId: notice.id,
+      outputFile: `news/${notice.id}.html`,
+      path: `/news/${notice.id}.html`,
+      title: `${notice.title}｜お知らせ｜東京農工大学将棋部`,
+      description: noticeDescription(notice),
+    },
+  ]),
+);
+
+export const pageDefinitions = {
+  ...staticPageDefinitions,
+  ...noticePageDefinitions,
 };
 
 export const pageDefinitionList = Object.values(pageDefinitions).map((page) => ({
