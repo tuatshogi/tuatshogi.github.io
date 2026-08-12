@@ -19,6 +19,12 @@ const seasons = sortRecordsByPublishedAt([
   { year: "newer", publishedAt: "2026-02-01T00:00:00Z", sortOrder: 100 },
 ]);
 assert.deepEqual(seasons.map((season) => season.year), ["newer", "older"]);
+
+const sameDateSeasons = sortRecordsByPublishedAt([
+  { year: "2025年度", publishedAt: "2026-08-01T00:00:00Z", sortOrder: 0 },
+  { year: "2026年度", publishedAt: "2026-08-01T00:00:00Z", sortOrder: 0 },
+]);
+assert.deepEqual(sameDateSeasons.map((season) => season.year), ["2026年度", "2025年度"]);
 assert.deepEqual(records.map((season) => season.year), [
   "2026年度（令和8年度）",
   "2025年度（令和7年度）",

@@ -38,7 +38,7 @@ export function sortRecordsByPublishedAt(items) {
   return items.toSorted((a, b) =>
     Date.parse(b.publishedAt) - Date.parse(a.publishedAt) ||
     a.sortOrder - b.sortOrder ||
-    a.year.localeCompare(b.year, "ja"),
+    b.year.localeCompare(a.year, "ja"),
   );
 }
 
