@@ -11,6 +11,7 @@ export const siteConfig = {
 
 export const navigationItems = [
   { label: "トップ", href: "/", page: "home", external: false },
+  { label: "お知らせ", href: "/news.html", page: "news", external: false },
   { label: "入部案内", href: "/entry.html", page: "entry", external: false },
   { label: "大会記録", href: "/record.html", page: "record", external: false },
   { label: "活動紹介", href: "/introduce.html", page: "introduce", external: false },
