@@ -6,7 +6,6 @@
     "linkUrl": "https://example.com/related",
     "published": true,
     "publishedAt": "2026-08-01T09:00:00+09:00",
-    "sortOrder": 1,
     "attachments": [
       {
         "id": "notice-newest-image",
@@ -28,7 +27,6 @@
     "body": "次のお知らせ本文です。",
     "published": true,
     "publishedAt": "2026-07-20T09:00:00+09:00",
-    "sortOrder": 1,
     "attachments": [],
     "createdAt": "2026-07-19T10:00:00+09:00",
     "updatedAt": "2026-07-20T09:00:00+09:00"
@@ -39,7 +37,6 @@
     "body": "三番目のお知らせ本文です。",
     "published": true,
     "publishedAt": "2026-07-10T09:00:00+09:00",
-    "sortOrder": 1,
     "attachments": [],
     "createdAt": "2026-07-09T10:00:00+09:00",
     "updatedAt": "2026-07-10T09:00:00+09:00"
@@ -50,7 +47,6 @@
     "body": "四番目のお知らせ本文です。",
     "published": true,
     "publishedAt": "2026-06-01T09:00:00+09:00",
-    "sortOrder": 1,
     "attachments": [],
     "createdAt": "2026-05-31T10:00:00+09:00",
     "updatedAt": "2026-06-01T09:00:00+09:00"
@@ -61,7 +57,6 @@
     "body": "公開されない下書き本文です。",
     "published": false,
     "publishedAt": "2026-08-10T09:00:00+09:00",
-    "sortOrder": 1,
     "attachments": [],
     "createdAt": "2026-08-09T10:00:00+09:00",
     "updatedAt": "2026-08-10T09:00:00+09:00"

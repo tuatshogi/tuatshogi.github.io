@@ -29,7 +29,6 @@ export function isSafeNoticeUrl(value) {
 export function sortNoticesByPublishedAt(items) {
   return items.toSorted((a, b) =>
     Date.parse(b.publishedAt) - Date.parse(a.publishedAt) ||
-    a.sortOrder - b.sortOrder ||
     a.id.localeCompare(b.id),
   );
 }

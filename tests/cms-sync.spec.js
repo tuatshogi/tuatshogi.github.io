@@ -9,7 +9,6 @@ const snapshot = {
       body: "自動同期された本文です。",
       linkUrl: "/record.html",
       publishedAt: "2026-08-10T13:10:00.000Z",
-      sortOrder: 0,
       attachments: [],
     },
   ],

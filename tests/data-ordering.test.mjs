@@ -3,8 +3,8 @@ import { sortNoticesByPublishedAt } from "../src/data/notices.js";
 import { records, sortRecordsByPublishedAt } from "../src/data/records.js";
 
 const notices = sortNoticesByPublishedAt([
-  { id: "older", publishedAt: "2026-01-01T00:00:00Z", sortOrder: -100 },
-  { id: "newer", publishedAt: "2026-02-01T00:00:00Z", sortOrder: 100 },
+  { id: "older", publishedAt: "2026-08-01T09:00:00+09:00" },
+  { id: "newer", publishedAt: "2026-08-01T18:00:00+09:00" },
 ]);
 assert.deepEqual(notices.map((notice) => notice.id), ["newer", "older"]);
 

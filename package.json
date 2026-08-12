@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "engines": {
-    "node": ">=20.19.0"
+    "node": ">=22.0.0"
   },
   "scripts": {
     "prepare:site": "node scripts/restore-templates.mjs && node scripts/optimize-images.mjs && node scripts/prerender-pages.mjs",

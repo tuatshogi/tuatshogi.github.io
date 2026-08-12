@@ -124,7 +124,7 @@ Cloudflare WorkerからGitHub Appを使用する。
 - 本文や添付画像もトップページには表示しない
 - お知らせがない場合の空状態
 
-公開順は`publishedAt`の新しい順とし、同値の場合は`sortOrder`で安定させる。
+公開順は`publishedAt`（日時・時刻）の新しい順とし、同一時刻の場合だけIDで安定させる。
 
 ### 4.4 お知らせ一覧ページ
 
@@ -200,7 +200,7 @@ URLの`<notice-id>`は記事ごとに固定し、タイトルの変更などで�
 - 下書き保存
 - 公開
 - 公開日の設定
-- 表示順の変更
+- 公開日時の変更
 - 内部・外部リンクの設定
 - 画像の添付・削除
 - 添付画像の`alt`設定
@@ -216,7 +216,6 @@ URLの`<notice-id>`は記事ごとに固定し、タイトルの変更などで�
 | `linkUrl` | 任意のリンク先 |
 | `published` | 公開状態 |
 | `publishedAt` | 公開日時 |
-| `sortOrder` | 表示順 |
 | `attachments` | 添付画像の一覧（`alt`、ファイルパス） |
 | `createdAt` | 作成日時 |
 | `updatedAt` | 更新日時 |
@@ -276,7 +275,7 @@ URLの`<notice-id>`は記事ごとに固定し、タイトルの変更などで�
 
 - `users`: 管理者アカウント、表示名、権限、状態、パスワードハッシュ
 - `sessions`: セッション情報、有効期限、失効状態
-- `notices`: お知らせ本文、公開状態、表示順、更新者
+- `notices`: お知らせ本文、公開状態、公開日時、更新者
 - `notice_attachments`: 添付画像のファイルパス、`alt`、ファイルサイズ、MIMEタイプ、作成者
 - `record_seasons`: 年度、公式結果URL、表示順、公開状態
 - `record_items`: 大会日、大会名、結果、詳細、強調状態、表示順
@@ -372,7 +371,7 @@ Cloudflare設定:
 - [x] Workers Static Assetsから配信するvanilla TypeScript/HTML/CSSのログイン、ダッシュボード、通知、記録、ユーザー、パスワード変更、部長引き継ぎ画面
 - [x] `/admin/login`, `/admin/`, `/admin/notices`, `/admin/notices/new`, `/admin/notices/:id/edit`, `/admin/records`, `/admin/records/:seasonId`, `/admin/users`, `/admin/account/password`, `/admin/transfer`
 - [x] fetch credentials、`GET /api/auth/me`ガード、401リダイレクト、403表示、role別ナビ、CSRF
-- [x] 通知・大会記録のCRUD、下書き・公開・非公開、公開日時、表示順、リンク、添付メタデータ操作
+- [x] 通知・大会記録のCRUD、下書き・公開・非公開、公開日時、リンク、添付メタデータ操作
 - [x] users CRUD、role/status操作、writer password reset、director transfer API
 - [x] キーボード操作、focus表示、label、aria-live、確認ダイアログ、44px操作領域、320px以上のレスポンシブCSS
 

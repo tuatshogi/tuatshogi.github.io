@@ -75,7 +75,6 @@ export function validateNotices(items = notices) {
     if (/[\u0000\u000b\u000c\u000e-\u001f\u007f]/.test(notice.body)) throw new Error(`${label}.body: contains an unsafe control character`);
     if (typeof notice.published !== "boolean") throw new Error(`${label}.published: must be boolean`);
     if (!isValidDate(notice.publishedAt)) throw new Error(`${label}.publishedAt: must be a valid date`);
-    if (!Number.isInteger(notice.sortOrder)) throw new Error(`${label}.sortOrder: must be an integer`);
     if (!isValidDate(notice.createdAt)) throw new Error(`${label}.createdAt: must be a valid date`);
     if (!isValidDate(notice.updatedAt)) throw new Error(`${label}.updatedAt: must be a valid date`);
     if (notice.linkUrl !== undefined && !isSafeNoticeUrl(notice.linkUrl)) {
