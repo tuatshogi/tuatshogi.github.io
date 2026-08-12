@@ -21,11 +21,16 @@ for (const pageDefinition of pages) {
       await expect(page.getByRole("heading", { level: 1 })).toContainText(
         pageDefinition.heading,
       );
+      // The hosted Chromium runner has a small, stable antialiasing variance on this page.
+      const maxDiffPixelRatio = pageDefinition.id === "news" && viewport.id === "tablet-1024"
+        ? 0.015
+        : 0.01;
       await expect(page).toHaveScreenshot(
         `${pageDefinition.id}-${viewport.id}.png`,
         {
           fullPage: true,
           style: hideMutableText,
+          maxDiffPixelRatio,
         },
       );
     });
