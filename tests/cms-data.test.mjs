@@ -14,6 +14,7 @@ const snapshot = {
       body: "未来",
       linkUrl: null,
       publishedAt: "2099-08-10T13:10:00.000Z",
+      sortOrder: 0,
       attachments: [],
     },
     {
@@ -22,6 +23,7 @@ const snapshot = {
       body: "一行目\n二行目",
       linkUrl: "/record.html",
       publishedAt: "2026-08-10T13:10:00.000Z",
+      sortOrder: 0,
       attachments: [
         {
           id: "image-1",
@@ -58,7 +60,7 @@ const snapshot = {
 
 const normalized = normalizeCmsSnapshot(snapshot, { now: Date.parse("2026-08-10T13:11:00Z") });
 assert.deepEqual(normalized.notices.map((notice) => notice.id), ["published"]);
-assert.equal(Object.hasOwn(normalized.notices[0], "sortOrder"), false);
+assert.equal(normalized.notices[0].sortOrder, 0);
 assert.equal(normalized.notices[0].attachments[0].path, "/images/cms.webp");
 assert.deepEqual(normalized.records.map((record) => record.year), ["2026年度"]);
 assert.equal(normalized.records[0].items[0].highlight, true);

@@ -116,6 +116,7 @@ function notice(value, index) {
     linkUrl: safeUrl(item.linkUrl, `${label}.linkUrl`),
     published: true,
     publishedAt: dateTime(item.publishedAt, `${label}.publishedAt`),
+    sortOrder: integer(item.sortOrder, `${label}.sortOrder`),
     attachments: item.attachments.map((entry, attachmentIndex) => attachment(entry, index, attachmentIndex)),
   };
 }

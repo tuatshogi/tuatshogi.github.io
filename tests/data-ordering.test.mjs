@@ -8,6 +8,12 @@ const notices = sortNoticesByPublishedAt([
 ]);
 assert.deepEqual(notices.map((notice) => notice.id), ["newer", "older"]);
 
+const sameTimeNotices = sortNoticesByPublishedAt([
+  { id: "low", publishedAt: "2026-08-02T09:00:00+09:00", sortOrder: 20 },
+  { id: "high", publishedAt: "2026-08-02T09:00:00+09:00", sortOrder: 10 },
+]);
+assert.deepEqual(sameTimeNotices.map((notice) => notice.id), ["high", "low"]);
+
 const seasons = sortRecordsByPublishedAt([
   { year: "older", publishedAt: "2026-01-01T00:00:00Z", sortOrder: -100 },
   { year: "newer", publishedAt: "2026-02-01T00:00:00Z", sortOrder: 100 },
