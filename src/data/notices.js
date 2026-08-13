@@ -29,6 +29,7 @@ function validateAttachment(attachment, noticeIndex, attachmentIndex) {
   if (typeof attachment.id !== "string" || !idPattern.test(attachment.id)) {
     throw new Error(`${label}.id: must contain only letters, numbers, hyphens, or underscores`);
   }
+  if (attachment.expired === true) return;
   if (!isSafeNoticeUrl(attachment.path)) {
     throw new Error(`${label}.path: must be a safe absolute path or http(s) URL`);
   }

@@ -35,6 +35,17 @@ const snapshot = {
           height: 50,
           responsive: {},
         },
+        {
+          id: "expired-image",
+          path: "",
+          alt: "期限切れ画像",
+          mimeType: "image/png",
+          sizeBytes: 100,
+          width: 200,
+          height: 100,
+          expired: true,
+          responsive: {},
+        },
       ],
     },
   ],
@@ -62,6 +73,8 @@ const normalized = normalizeCmsSnapshot(snapshot, { now: Date.parse("2026-08-10T
 assert.deepEqual(normalized.notices.map((notice) => notice.id), ["published"]);
 assert.equal(normalized.notices[0].sortOrder, 0);
 assert.equal(normalized.notices[0].attachments[0].path, "/images/cms.webp");
+assert.equal(normalized.notices[0].attachments[1].expired, true);
+assert.equal(normalized.notices[0].attachments[1].path, "");
 assert.deepEqual(normalized.records.map((record) => record.year), ["2026年度"]);
 assert.equal(normalized.records[0].items[0].highlight, true);
 

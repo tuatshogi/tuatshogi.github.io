@@ -78,6 +78,19 @@ function attachment(value, noticeIndex, attachmentIndex) {
   if (typeof item.id !== "string" || !idPattern.test(item.id)) {
     throw new Error(`${label}.id: is invalid`);
   }
+  if (item.expired === true) {
+    return {
+      id: item.id,
+      path: "",
+      alt: string(item.alt, `${label}.alt`, 1000),
+      mimeType: item.mimeType,
+      sizeBytes: Number.isInteger(item.sizeBytes) && item.sizeBytes >= 0 ? item.sizeBytes : 0,
+      width: Number.isInteger(item.width) && item.width > 0 ? item.width : 1,
+      height: Number.isInteger(item.height) && item.height > 0 ? item.height : 1,
+      expired: true,
+      responsive: {},
+    };
+  }
   if (!/^image\/(?:jpeg|png|webp)$/i.test(item.mimeType)) {
     throw new Error(`${label}.mimeType: is invalid`);
   }
@@ -95,6 +108,7 @@ function attachment(value, noticeIndex, attachmentIndex) {
     sizeBytes: item.sizeBytes,
     width: item.width,
     height: item.height,
+    expired: false,
     responsive: Object.fromEntries(
       Object.entries(responsive).map(([format, path]) => {
         if (!/^[a-z0-9.+-]+$/i.test(format)) throw new Error(`${label}.responsive: is invalid`);

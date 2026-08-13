@@ -181,6 +181,10 @@ if (rootElement) {
       heading.id = "notice-attachments-title";
       const images = element("div", "mt-6 space-y-6");
       for (const attachment of notice.attachments) {
+        if (attachment.expired) {
+          images.append(element("p", "rounded-xl border border-dashed border-line bg-white/60 px-5 py-8 text-center text-ink/65", "期限切れのため画像を表示できません。"));
+          continue;
+        }
         const figure = element("figure", "overflow-hidden rounded-xl border border-line bg-white p-2 shadow-[0_12px_35px_rgba(15,51,80,0.10)] md:p-3");
         const image = element("img", "h-auto w-full rounded-lg");
         image.src = attachment.path;

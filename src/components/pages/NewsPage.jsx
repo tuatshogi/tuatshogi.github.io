@@ -15,6 +15,13 @@ function PageShell({ title, lead, children }) {
 }
 
 function NoticeAttachment({ attachment }) {
+  if (attachment.expired) {
+    return (
+      <div role="status" className="rounded-xl border border-dashed border-line bg-white/60 px-5 py-8 text-center text-ink/65">
+        期限切れのため画像を表示できません。
+      </div>
+    );
+  }
   const responsiveSources = Object.entries(attachment.responsive ?? {}).filter(([, path]) => path);
   const image = (
     <img
