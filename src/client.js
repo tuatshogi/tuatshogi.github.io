@@ -291,10 +291,21 @@ if (rootElement) {
       return syncInFlight;
     };
 
-    void sync();
+    const scheduleSync = () => {
+      if (typeof window.requestIdleCallback === "function") {
+        window.requestIdleCallback(() => { void sync(); }, { timeout: 1000 });
+      } else {
+        window.setTimeout(() => { void sync(); }, 0);
+      }
+    };
+
+    scheduleSync();
     window.setInterval(() => {
-      if (document.visibilityState === "visible") void sync();
+      if (document.visibilityState === "visible") scheduleSync();
     }, cmsRefreshIntervalMs);
-    window.addEventListener("focus", () => { void sync(); });
+    window.addEventListener("focus", scheduleSync);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") scheduleSync();
+    });
   }
 }

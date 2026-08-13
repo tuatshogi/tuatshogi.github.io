@@ -65,3 +65,23 @@ test("CMS failure retains prerendered fallback records", async ({ page }) => {
   await expect(page.locator("#root")).toHaveAttribute("data-cms-sync", "fallback");
   await expect(page.getByRole("heading", { level: 2, name: "2026年度（令和8年度）" })).toBeVisible();
 });
+
+test("CMS synchronization starts after the initial prerender and suppresses repeated focus requests", async ({ page }) => {
+  let requests = 0;
+  await page.route(cmsNoticesUrl, (route) => {
+    requests += 1;
+    return route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      headers: { "access-control-allow-origin": "*" },
+      body: JSON.stringify({ notices: snapshot.notices }),
+    });
+  });
+  await page.goto("/news.html?cms-preview=1");
+  await expect(page.locator("[data-cms-notice-list]")).toBeVisible();
+  await expect(page.locator("#root")).toHaveAttribute("data-cms-sync", "ready");
+  await page.evaluate(() => window.dispatchEvent(new Event("focus")));
+  await page.evaluate(() => window.dispatchEvent(new Event("focus")));
+  await page.waitForTimeout(50);
+  expect(requests).toBe(1);
+});
