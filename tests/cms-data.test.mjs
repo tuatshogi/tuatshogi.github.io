@@ -78,7 +78,7 @@ const fetched = await fetchCmsSnapshot({
 });
 assert.equal(requestedUrl, cmsSnapshotUrl);
 assert.equal(requestedOptions.credentials, "omit");
-assert.equal(requestedOptions.cache, "no-store");
+assert.equal(requestedOptions.cache, "default");
 assert.deepEqual(fetched, { notices: [], records: [] });
 
 assert.throws(

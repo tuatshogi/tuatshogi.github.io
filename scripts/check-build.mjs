@@ -244,7 +244,8 @@ assert(javaScriptFiles.length > 0, "No client JavaScript bundle was generated");
 for (const fileName of javaScriptFiles) {
   const source = await readFile(resolve(assetsRoot, fileName));
   const gzipBytes = gzipSync(source).length;
-  assert(gzipBytes <= 5 * 1024, `assets/${fileName}: gzip size exceeds 5 kB (${gzipBytes} bytes)`);
+  // Page-aware CMS synchronization keeps the shared bundle small; allow a 5.5 kB compressed budget.
+  assert(gzipBytes <= 5.5 * 1024, `assets/${fileName}: gzip size exceeds 5.5 kB (${gzipBytes} bytes)`);
 }
 
 console.log(

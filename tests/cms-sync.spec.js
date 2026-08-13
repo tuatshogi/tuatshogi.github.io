@@ -1,6 +1,8 @@
 import { expect, test } from "@playwright/test";
 
 const cmsSnapshotUrl = "https://mycraft-cms.tuatshogi.workers.dev/api/public/snapshot";
+const cmsNoticesUrl = "https://mycraft-cms.tuatshogi.workers.dev/api/public/notices";
+const cmsRecordsUrl = "https://mycraft-cms.tuatshogi.workers.dev/api/public/records";
 const snapshot = {
   notices: [
     {
@@ -26,12 +28,16 @@ const snapshot = {
 };
 
 async function mockCms(page) {
-  await page.route(cmsSnapshotUrl, (route) => route.fulfill({
+  const fulfill = (route, body) => route.fulfill({
     status: 200,
     contentType: "application/json",
     headers: { "access-control-allow-origin": "*" },
-    body: JSON.stringify(snapshot),
-  }));
+    body: JSON.stringify(body),
+  });
+  await page.route(cmsSnapshotUrl, (route) => fulfill(route, snapshot));
+  await page.route(cmsNoticesUrl, (route) => fulfill(route, { notices: snapshot.notices }));
+  await page.route(`${cmsNoticesUrl}/cms-notice`, (route) => fulfill(route, { notice: snapshot.notices[0] }));
+  await page.route(cmsRecordsUrl, (route) => fulfill(route, { records: snapshot.records }));
 }
 
 test("CMS snapshot replaces news and records and opens a dynamic notice detail", async ({ page }) => {
@@ -54,7 +60,7 @@ test("CMS snapshot replaces news and records and opens a dynamic notice detail",
 });
 
 test("CMS failure retains prerendered fallback records", async ({ page }) => {
-  await page.route(cmsSnapshotUrl, (route) => route.abort());
+  await page.route(cmsRecordsUrl, (route) => route.abort());
   await page.goto("/record.html?cms-preview=1");
   await expect(page.locator("#root")).toHaveAttribute("data-cms-sync", "fallback");
   await expect(page.getByRole("heading", { level: 2, name: "2026年度（令和8年度）" })).toBeVisible();

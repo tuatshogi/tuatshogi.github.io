@@ -6,7 +6,9 @@ import {
 } from "./publication.js";
 
 export const cmsSnapshotUrl = "https://mycraft-cms.tuatshogi.workers.dev/api/public/snapshot";
-export const cmsRefreshIntervalMs = 30_000;
+export const cmsNoticesUrl = "https://mycraft-cms.tuatshogi.workers.dev/api/public/notices";
+export const cmsRecordsUrl = "https://mycraft-cms.tuatshogi.workers.dev/api/public/records";
+export const cmsRefreshIntervalMs = 300_000;
 
 const idPattern = /^[A-Za-z0-9_-]{1,64}$/;
 const controlPattern = /[\u0000-\u001f\u007f]/;
@@ -187,26 +189,44 @@ export function normalizeCmsSnapshot(value, { now = Date.now() } = {}) {
   };
 }
 
-export async function fetchCmsSnapshot({ fetchImpl = globalThis.fetch, timeoutMs = 8000 } = {}) {
+async function fetchCmsJson(path, { fetchImpl = globalThis.fetch, timeoutMs = 8000 } = {}) {
   if (typeof fetchImpl !== "function") throw new Error("CMS fetch is unavailable");
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const response = await fetchImpl(cmsSnapshotUrl, {
+    const response = await fetchImpl(path, {
       method: "GET",
       headers: { accept: "application/json" },
       credentials: "omit",
-      cache: "no-store",
+      cache: "default",
       signal: controller.signal,
     });
     if (!response.ok) throw new Error(`CMS request failed (${response.status})`);
     if (!(response.headers.get("content-type") ?? "").toLowerCase().startsWith("application/json")) {
       throw new Error("CMS response is not JSON");
     }
-    return normalizeCmsSnapshot(await response.json());
+    return await response.json();
   } finally {
     clearTimeout(timeout);
   }
+}
+
+export async function fetchCmsSnapshot(options = {}) {
+  const root = globalThis.document?.getElementById("root");
+  const page = root?.dataset.page ?? "home";
+  const locationValue = globalThis.location;
+  const queryId = locationValue && new URLSearchParams(locationValue.search).get("id");
+  const pathId = locationValue?.pathname.match(/^\/news\/([A-Za-z0-9_-]{1,64})\.html$/)?.[1];
+  const noticeId = queryId && idPattern.test(queryId) ? queryId : pathId;
+  const detail = (page === "notice" || (page === "news" && noticeId)) && noticeId;
+  const path = page === "home" ? cmsSnapshotUrl :
+    page === "record" ? cmsRecordsUrl : cmsNoticesUrl + (detail ? `/${encodeURIComponent(noticeId)}` : "");
+  const value = await fetchCmsJson(path, options);
+  if (page === "home") return normalizeCmsSnapshot(value);
+  return normalizeCmsSnapshot({
+    notices: page === "record" ? [] : detail ? [value.notice] : value.notices,
+    records: page === "record" ? value.records : [],
+  });
 }
 
 export function shouldUseCms(locationValue = globalThis.location) {

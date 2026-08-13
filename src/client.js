@@ -143,12 +143,12 @@ if (rootElement) {
     }
   };
 
-  const renderNewsPage = (notices) => {
+  const renderNewsPage = (notices, detailNotice) => {
     const content = document.querySelector("[data-cms-news-content]");
     const title = document.querySelector("[data-cms-news-title]");
     if (!content || !title || !requestedNoticeId) return;
     const lead = document.querySelector("[data-cms-news-lead]");
-    const notice = notices.find((item) => item.id === requestedNoticeId);
+    const notice = detailNotice ?? notices.find((item) => item.id === requestedNoticeId);
     content.replaceChildren();
     if (!notice) {
       title.textContent = "お知らせ一覧";
@@ -254,11 +254,19 @@ if (rootElement) {
     }
   };
 
-  if (shouldUseCms()) {
+  const cmsPage = rootElement.dataset.page;
+  const usesCmsData = ["home", "record", "news", "notice"].includes(cmsPage);
+
+  if (shouldUseCms() && usesCmsData) {
     let syncInFlight;
     let hasLoggedFailure = false;
+    let lastAttemptAt = 0;
+
     const sync = async () => {
       if (syncInFlight) return syncInFlight;
+      const now = Date.now();
+      if (now - lastAttemptAt < cmsRefreshIntervalMs) return;
+      lastAttemptAt = now;
       rootElement.dataset.cmsSync = "loading";
       syncInFlight = fetchCmsSnapshot()
         .then((snapshot) => {
