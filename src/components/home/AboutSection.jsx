@@ -8,7 +8,7 @@ export default function AboutSection() {
         <header className="mx-auto max-w-2xl text-center">
           <p className="text-xs font-bold tracking-[0.28em] text-navy"></p>
           <h2 id="about-title" className="mt-4 font-mincho text-3xl font-bold tracking-[0.06em] text-sumi md:text-5xl">
-            新入生大募集中!!!
+            新入部員、募集中。
           </h2>
           <p className="mt-6 text-base leading-8 text-ink/70 md:text-lg">
           </p>
