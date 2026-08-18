@@ -52,7 +52,7 @@ const entrySections = [
   { title: "部費", body: "部費はありません。" },
   {
     title: "入部・見学方法",
-    body: "見学や入部をご希望の方は、将棋部の公式Twitter（現X）にDMでその旨をご連絡ください。みなさんの参加をお待ちしています。",
+    body: "見学では、普段の活動を自由に見たり、部員と対局したりできます。将棋をまだ指せない方でも大丈夫です。見学だけでも歓迎しています。見学や入部をご希望の方は、将棋部の公式Twitter（現X）にDMでその旨をご連絡ください。みなさんの参加をお待ちしています。",
     cta: true,
   },
   {
@@ -124,24 +124,24 @@ function RecordPage({ records }) {
         )}
         {records.map((record) => (
           <section key={record.year}>
-          <div className="flex flex-wrap items-end justify-between gap-3">
-            <h2 className="font-mincho text-2xl font-bold text-sumi md:text-3xl">{record.year}</h2>
-            <a href={record.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-navy underline decoration-navy/30 underline-offset-4 hover:decoration-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy">
-              公式結果を見る<span className="sr-only">（新しいタブで開く）</span>
-            </a>
-          </div>
-          <ul className="mt-5 space-y-4">
-            {record.items.map((item) => (
-              <li key={`${item.date}-${item.event}`} className="rounded-xl border border-line bg-white p-5 md:flex md:items-center md:gap-6 md:p-6">
-                <time className="text-sm text-ink/70">{item.date}</time>
-                <div className="mt-2 flex-1 md:mt-0">
-                  <p className="font-bold text-sumi">{item.event}</p>
-                  <p className="mt-1 text-sm text-ink/70">{item.detail}</p>
-                </div>
-                <span className={`mt-3 inline-block rounded-full px-3 py-1 text-sm font-bold md:mt-0 ${item.highlight ? "bg-gold text-navy" : "bg-navy/10 text-navy"}`}>{item.result}</span>
-              </li>
-            ))}
-          </ul>
+            <div className="flex flex-wrap items-end justify-between gap-3">
+              <h2 className="font-mincho text-2xl font-bold text-sumi md:text-3xl">{record.year}</h2>
+              <a href={record.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-navy underline decoration-navy/30 underline-offset-4 hover:decoration-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy">
+                公式結果を見る<span className="sr-only">（新しいタブで開く）</span>
+              </a>
+            </div>
+            <ul className="mt-5 space-y-4">
+              {record.items.map((item) => (
+                <li key={`${item.date}-${item.event}`} className="rounded-xl border border-line bg-white p-5 md:flex md:items-center md:gap-6 md:p-6">
+                  <time className="text-sm text-ink/70">{item.date}</time>
+                  <div className="mt-2 flex-1 md:mt-0">
+                    <p className="font-bold text-sumi">{item.event}</p>
+                    <p className="mt-1 text-sm text-ink/70">{item.detail}</p>
+                  </div>
+                  <span className={`mt-3 inline-block rounded-full px-3 py-1 text-sm font-bold md:mt-0 ${item.highlight ? "bg-gold text-navy" : "bg-navy/10 text-navy"}`}>{item.result}</span>
+                </li>
+              ))}
+            </ul>
           </section>
         ))}
       </div>
