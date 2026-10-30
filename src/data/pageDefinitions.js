@@ -80,7 +80,7 @@ export const ogImage = {
   url: `${siteOrigin}/og-image.jpg`,
   width: 1200,
   height: 630,
-  alt: "藍色の将棋盤と駒を背景に、東京農工大学将棋部とキャッチコピーを記した画像",
+  alt: "藍色の将棋盤と駒を背景に、東京農工大学将棋部の名前を記した画像",
 };
 
 export const organizationStructuredData = {
