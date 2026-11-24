@@ -3,6 +3,7 @@ import Footer from "./components/layout/Footer";
 import HeroSection from "./components/home/HeroSection";
 import AboutSection from "./components/home/AboutSection";
 import NewsSection from "./components/home/NewsSection";
+import HomeDetailsSection from "./components/home/HomeDetailsSection";
 import ContentPage from "./components/pages/ContentPage";
 import NewsPage from "./components/pages/NewsPage";
 
@@ -17,16 +18,19 @@ function PageContent({ page, notices, notice, records }) {
     <>
       <HeroSection />
       <NewsSection notices={notices} />
-      <AboutSection />
+      <div className="home-editorial">
+        <AboutSection />
+        <HomeDetailsSection />
+      </div>
     </>
   );
 }
 
 export default function App({ page = "home", notices = [], notice, records = [] }) {
   return (
-    <div className="flex min-h-screen flex-col bg-warmWhite text-ink">
+    <div data-home-page={page === "home" ? "true" : undefined} className="flex min-h-screen flex-col bg-warmWhite text-ink">
       <Header currentPage={page} />
-      <main className="flex-1 pt-[72px] md:pt-[96px]">
+      <main className="flex-1 pt-[72px] md:pt-20">
         <PageContent page={page} notices={notices} notice={notice} records={records} />
       </main>
       <Footer />

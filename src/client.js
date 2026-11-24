@@ -1,4 +1,5 @@
 import "./index.css";
+import "./home-sections.css";
 import {
   cmsRefreshIntervalMs,
   fetchCmsSnapshot,
@@ -10,7 +11,7 @@ const menuToggle = document.querySelector("[data-menu-toggle]");
 const mobileNavigation = document.getElementById("mobile-navigation");
 
 if (menuToggle && mobileNavigation) {
-  const desktopQuery = window.matchMedia("(min-width: 768px)");
+  const desktopQuery = window.matchMedia("(min-width: 1280px)");
   const menuLinks = mobileNavigation.querySelectorAll("[data-menu-link]");
 
   const isMenuOpen = () => menuToggle.getAttribute("aria-expanded") === "true";
@@ -46,6 +47,144 @@ if (menuToggle && mobileNavigation) {
       setMenuOpen(false);
     }
   });
+}
+
+const homeNewsSection = document.querySelector(".home-news-section");
+
+if (homeNewsSection) {
+  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const mixRgb = (start, end, progress) => start
+    .map((channel, index) => Math.round(channel + (end[index] - channel) * progress))
+    .join(", ");
+  let colorFrame = 0;
+
+  const updateScrollColor = () => {
+    const rect = homeNewsSection.getBoundingClientRect();
+    const viewportHeight = Math.max(1, window.innerHeight);
+    const finishAt = viewportHeight * 0.22;
+    const progress = reducedMotionQuery.matches
+      ? 0
+      : Math.min(1, Math.max(0, (viewportHeight - rect.top) / (viewportHeight - finishAt)));
+
+    homeNewsSection.style.setProperty("--home-news-background", `rgb(${mixRgb([247, 245, 239], [17, 40, 64], progress)})`);
+    homeNewsSection.style.setProperty("--home-news-heading", `rgb(${mixRgb([17, 40, 64], [249, 249, 248], progress)})`);
+    homeNewsSection.style.setProperty("--home-news-action", `rgb(${mixRgb([133, 83, 14], [226, 184, 108], progress)})`);
+    homeNewsSection.style.setProperty("--home-news-indicator", `rgb(${mixRgb([17, 40, 64], [226, 184, 108], progress)})`);
+    homeNewsSection.style.setProperty("--home-news-border", `rgb(${mixRgb([228, 231, 226], [77, 87, 100], progress)})`);
+  };
+
+  const scheduleScrollColorUpdate = () => {
+    if (colorFrame) return;
+    colorFrame = window.requestAnimationFrame(() => {
+      colorFrame = 0;
+      updateScrollColor();
+    });
+  };
+
+  updateScrollColor();
+  window.addEventListener("scroll", scheduleScrollColorUpdate, { passive: true });
+  window.addEventListener("resize", scheduleScrollColorUpdate);
+  reducedMotionQuery.addEventListener("change", scheduleScrollColorUpdate);
+
+  const activityCubes = Array.from(document.querySelectorAll("[data-activity-cube]"));
+
+  if (activityCubes.length) {
+    let activityCubeFrame = 0;
+
+    const updateActivityCubes = () => {
+      activityCubeFrame = 0;
+      const viewportHeight = Math.max(1, window.innerHeight);
+      const maximumTurn = window.innerWidth < 768 ? 12 : 55;
+
+      activityCubes.forEach((cube) => {
+        if (reducedMotionQuery.matches) {
+          cube.style.setProperty("--activity-cube-turn", "0deg");
+          return;
+        }
+
+        const bounds = cube.parentElement.getBoundingClientRect();
+        const center = bounds.top + bounds.height / 2;
+        const start = viewportHeight * 1.2 + bounds.height / 2;
+        const front = viewportHeight * (2 / 3) + bounds.height / 2;
+        const progress = Math.max(0, Math.min(1, (start - center) / (start - front)));
+        const turn = -maximumTurn * (1 - progress);
+        cube.style.setProperty("--activity-cube-turn", `${turn.toFixed(2)}deg`);
+      });
+    };
+
+    const scheduleActivityCubeUpdate = () => {
+      if (activityCubeFrame) return;
+      activityCubeFrame = window.requestAnimationFrame(updateActivityCubes);
+    };
+
+    updateActivityCubes();
+    window.addEventListener("scroll", scheduleActivityCubeUpdate, { passive: true });
+    window.addEventListener("resize", scheduleActivityCubeUpdate, { passive: true });
+    reducedMotionQuery.addEventListener("change", scheduleActivityCubeUpdate);
+  }
+
+  const staggerGroups = document.querySelectorAll("[data-stagger-group]");
+  const staggerItems = Array.from(document.querySelectorAll("[data-stagger-item]"));
+
+  if (staggerItems.length && "IntersectionObserver" in window && !reducedMotionQuery.matches) {
+    staggerGroups.forEach((group) => {
+      group.querySelectorAll("[data-stagger-item]").forEach((item, index) => {
+        item.style.setProperty("--stagger-delay", `${Math.min(index * 90, 450)}ms`);
+        item.dataset.staggerState = "pending";
+        item.inert = true;
+      });
+    });
+
+    const staggerObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.dataset.staggerState = "visible";
+        entry.target.inert = false;
+        staggerObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px 0px -6% 0px", threshold: 0 });
+    staggerItems.forEach((item) => staggerObserver.observe(item));
+
+    reducedMotionQuery.addEventListener("change", (event) => {
+      if (!event.matches) return;
+      staggerObserver.disconnect();
+      staggerItems.forEach((item) => {
+        item.dataset.staggerState = "visible";
+        item.inert = false;
+      });
+    });
+  }
+
+  const newsSliceOverlay = homeNewsSection.querySelector("[data-news-slice-overlay]");
+
+  if (newsSliceOverlay && !reducedMotionQuery.matches) {
+    homeNewsSection.dataset.sliceTransition = "pending";
+
+    newsSliceOverlay.addEventListener("transitionend", (event) => {
+      if (event.target !== newsSliceOverlay.lastElementChild || event.propertyName !== "transform") return;
+      homeNewsSection.dataset.sliceTransition = "opened";
+    });
+
+    const revealNewsSlices = () => {
+      homeNewsSection.dataset.sliceTransition = reducedMotionQuery.matches ? "opened" : "opening";
+    };
+
+    if (!("IntersectionObserver" in window)) {
+      homeNewsSection.dataset.sliceTransition = "opened";
+    } else {
+      const observer = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting) return;
+        revealNewsSlices();
+        observer.disconnect();
+      }, { rootMargin: "0px 0px -15% 0px", threshold: 0 });
+
+      observer.observe(homeNewsSection);
+    }
+
+    reducedMotionQuery.addEventListener("change", (event) => {
+      if (event.matches) homeNewsSection.dataset.sliceTransition = "opened";
+    });
+  }
 }
 
 const rootElement = document.getElementById("root");
@@ -100,16 +239,59 @@ if (rootElement) {
     }
   };
 
-  const createNoticeList = (notices, { limit, showPublishedDate }) => {
+  const createNoticeList = (notices, { limit, showPublishedDate, layout }) => {
     const visibleNotices = Number.isInteger(limit) ? notices.slice(0, limit) : notices;
+    const isCarouselLayout = layout === "carousel";
+    const isCardLayout = layout === "cards" || isCarouselLayout;
     const syncAttributes = (node) => {
       node.dataset.cmsNoticeList = "";
       node.dataset.limit = Number.isInteger(limit) ? String(limit) : "";
       node.dataset.showPublishedDate = String(showPublishedDate);
+      node.dataset.layout = layout;
+      if (isCarouselLayout) {
+        node.id = "home-news-track";
+        node.tabIndex = 0;
+        node.setAttribute("aria-label", "お知らせ");
+      }
       return node;
     };
     if (visibleNotices.length === 0) {
-      return syncAttributes(element("p", "rounded-xl border border-dashed border-line bg-white/60 px-5 py-8 text-center text-ink/65", "現在、お知らせはありません。"));
+      if (isCarouselLayout) {
+        const list = syncAttributes(element("ul", "home-news-track"));
+        const item = element("li", "home-news-empty-slide");
+        item.append(element("p", "home-news-empty", "現在、お知らせはありません。"));
+        list.append(item);
+        return list;
+      }
+      const emptyClassName = isCardLayout
+        ? "rounded-xl border border-dashed border-[#C4C6CE] bg-white/70 px-5 py-8 text-center text-[#626B77]"
+        : "rounded-xl border border-dashed border-line bg-white/60 px-5 py-8 text-center text-ink/65";
+      return syncAttributes(element("p", emptyClassName, "現在、お知らせはありません。"));
+    }
+    if (isCardLayout) {
+      const list = syncAttributes(element("ul", isCarouselLayout ? "home-news-track" : "grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4"));
+      const formatCardDate = (value) => new Intl.DateTimeFormat("ja-JP", {
+        year: "numeric", month: "2-digit", day: "2-digit", timeZone: "Asia/Tokyo",
+      }).format(new Date(value)).replaceAll("/", ".");
+      for (const notice of visibleNotices) {
+        const item = element("li", isCarouselLayout ? "home-news-slide" : "min-w-0");
+        const card = element("a", "group flex h-full min-h-[clamp(172px,42svh,360px)] flex-col rounded-xl border border-[#E4E7E2] bg-white p-5 shadow-[0_2px_8px_-2px_rgba(17,40,64,0.05)] transition duration-300 hover:-translate-y-1 hover:border-[#D99B52] hover:shadow-[0_10px_24px_-12px_rgba(17,40,64,0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2");
+        card.href = noticeHref(notice.id);
+        const meta = element("div", "flex items-center justify-between gap-2");
+        meta.append(element("span", "rounded-full bg-[#F3F4F1] px-2.5 py-1 text-[11px] font-semibold leading-4 text-[#112840]", "お知らせ"));
+        if (showPublishedDate) {
+          const time = element("time", "shrink-0 text-xs text-[#626B77]", formatCardDate(notice.publishedAt));
+          time.dateTime = notice.publishedAt;
+          meta.append(time);
+        }
+        const title = element("h3", "mt-4 flex-1 font-mincho text-base font-bold leading-7 text-[#112840] transition-colors group-hover:text-[#85530E]", notice.title);
+        const arrow = element("span", "mt-3 self-end text-lg text-[#626B77] transition-transform group-hover:translate-x-1 group-hover:text-[#85530E]", "→");
+        arrow.setAttribute("aria-hidden", "true");
+        card.append(meta, title, arrow);
+        item.append(card);
+        list.append(item);
+      }
+      return list;
     }
     const list = syncAttributes(element("ul", "divide-y divide-line rounded-xl border border-line bg-white"));
     for (const notice of visibleNotices) {
@@ -132,6 +314,77 @@ if (rootElement) {
     return list;
   };
 
+  const updateNewsCarousels = () => {
+    for (const carousel of document.querySelectorAll("[data-news-carousel]")) {
+      const track = carousel.querySelector("[data-cms-notice-list]");
+      const indicators = carousel.querySelector("[data-news-page-indicators]");
+      const previous = carousel.querySelector('[data-news-direction="-1"]');
+      const next = carousel.querySelector('[data-news-direction="1"]');
+      if (!track || !indicators || !previous || !next) continue;
+
+      if (carousel.dataset.newsCarouselBound !== "true") {
+        carousel.dataset.newsCarouselBound = "true";
+        carousel.addEventListener("click", (event) => {
+          if (!(event.target instanceof Element)) return;
+          const control = event.target.closest("[data-news-direction], [data-news-page]");
+          if (!control || !carousel.contains(control)) return;
+          const currentTrack = carousel.querySelector("[data-cms-notice-list]");
+          if (!currentTrack) return;
+          const scrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "auto"
+            : "smooth";
+
+          if (control.dataset.newsPage !== undefined) {
+            const pageCount = Math.max(1, Math.ceil(currentTrack.scrollWidth / Math.max(1, currentTrack.clientWidth)));
+            const lastPage = pageCount - 1;
+            const targetPage = Number(control.dataset.newsPage);
+            const maxScroll = Math.max(0, currentTrack.scrollWidth - currentTrack.clientWidth);
+            currentTrack.scrollTo({
+              left: lastPage > 0 ? maxScroll * (targetPage / lastPage) : 0,
+              behavior: scrollBehavior,
+            });
+            return;
+          }
+
+          currentTrack.scrollBy({
+            left: Number(control.dataset.newsDirection) * currentTrack.clientWidth,
+            behavior: scrollBehavior,
+          });
+        });
+      }
+
+      if (track.dataset.newsCarouselBound !== "true") {
+        track.dataset.newsCarouselBound = "true";
+        track.addEventListener("scroll", () => requestAnimationFrame(updateNewsCarousels), { passive: true });
+      }
+
+      const pageCount = Math.max(1, Math.ceil(track.scrollWidth / Math.max(1, track.clientWidth)));
+      if (indicators.children.length !== pageCount || indicators.firstElementChild?.tagName !== "BUTTON") {
+        indicators.replaceChildren();
+        for (let index = 0; index < pageCount; index += 1) {
+          const indicator = element("button", "home-news-indicator");
+          indicator.type = "button";
+          indicator.dataset.newsPage = String(index);
+          indicator.setAttribute("aria-label", `お知らせ ${index + 1}ページ目へ`);
+          indicators.append(indicator);
+        }
+      }
+
+      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+      const activePage = pageCount > 1 && maxScroll > 0
+        ? Math.round((track.scrollLeft / maxScroll) * (pageCount - 1))
+        : 0;
+      [...indicators.children].forEach((indicator, index) => {
+        if (index === activePage) indicator.setAttribute("aria-current", "true");
+        else indicator.removeAttribute("aria-current");
+        indicator.classList.toggle("home-news-indicator--current", index === activePage);
+      });
+
+      previous.disabled = maxScroll <= 1 || track.scrollLeft <= 1;
+      next.disabled = maxScroll <= 1 || track.scrollLeft >= maxScroll - 1;
+    }
+  };
+
   const renderNoticeLists = (notices) => {
     const lists = [...document.querySelectorAll("[data-cms-notice-list]")];
     for (const list of lists) {
@@ -139,8 +392,10 @@ if (rootElement) {
       list.replaceWith(createNoticeList(notices, {
         limit: list.dataset.limit === "" || !Number.isInteger(parsedLimit) ? undefined : parsedLimit,
         showPublishedDate: list.dataset.showPublishedDate !== "false",
+        layout: list.dataset.layout ?? "list",
       }));
     }
+    updateNewsCarousels();
   };
 
   const renderNewsPage = (notices, detailNotice) => {
@@ -260,6 +515,9 @@ if (rootElement) {
 
   const cmsPage = rootElement.dataset.page;
   const usesCmsData = ["home", "record", "news", "notice"].includes(cmsPage);
+
+  updateNewsCarousels();
+  window.addEventListener("resize", updateNewsCarousels, { passive: true });
 
   if (shouldUseCms() && usesCmsData) {
     let syncInFlight;

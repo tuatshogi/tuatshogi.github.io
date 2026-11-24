@@ -1,18 +1,17 @@
-export default function FeatureCard({ number, title, description, motif }) {
+export default function FeatureCard({ title, description, motif, number }) {
   return (
-    <article className="relative h-full overflow-hidden border border-line bg-paper p-6 shadow-[0_8px_30px_rgba(15,23,42,0.04)] md:p-8">
-      <span className="text-xs font-bold tracking-[0.2em] text-gold">{number}</span>
-      <span
-        className="pointer-events-none absolute -right-1 -top-7 font-mincho text-[9rem] leading-none text-navy/[0.045]"
-        aria-hidden="true"
-      >
-        {motif}
-      </span>
-      <h3 className="relative mt-6 font-mincho text-2xl font-bold tracking-[0.05em] text-sumi">
-        {title}
-      </h3>
-      <div className="my-5 h-px w-10 bg-gold" aria-hidden="true" />
-      <p className="relative text-base leading-[1.9] text-ink/75">{description}</p>
+    <article className="recruitment-piece group">
+      <div className="recruitment-piece__face">
+        <span className="recruitment-piece__number font-mincho" aria-hidden="true">{number}</span>
+        <span className="recruitment-piece__motif font-mincho" aria-hidden="true">{motif}</span>
+        <div className="recruitment-piece__copy">
+          <h3 className="font-mincho text-xl font-bold tracking-[0.04em] text-[#112840] md:text-2xl">
+            {title}
+          </h3>
+          <div className="h-0.5 w-8 bg-[#D99B52]" aria-hidden="true" />
+          <p className="font-mincho text-[15px] leading-7 text-[#1E2229]/85 md:text-base">{description}</p>
+        </div>
+      </div>
     </article>
   );
 }

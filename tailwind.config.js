@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./index.html", "./src/**/*.{js,jsx}"],
+  content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -14,7 +14,7 @@ export default {
       },
       fontFamily: {
         mincho: ["Shippori Mincho", "Noto Serif JP", "serif"],
-        sans: ["Noto Sans JP", "sans-serif"],
+        sans: ["Shippori Mincho", "Noto Serif JP", "serif"],
       },
       maxWidth: {
         site: "1200px",

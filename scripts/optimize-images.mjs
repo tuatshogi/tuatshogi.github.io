@@ -137,7 +137,7 @@ const ogCopy = Buffer.from(`
     <rect x="72" y="251" width="112" height="4" rx="2" fill="#c9a34a"/>
     <text x="72" y="350" fill="#f8faf8" font-family="Noto Serif CJK JP, Yu Mincho, serif" font-size="61" font-weight="700" letter-spacing="2">詰みは見える。</text>
     <text x="72" y="431" fill="#f8faf8" font-family="Noto Serif CJK JP, Yu Mincho, serif" font-size="61" font-weight="700" letter-spacing="2">将来は見えない。</text>
-    <text x="74" y="526" fill="#c9a34a" font-family="Noto Sans CJK JP, Yu Gothic, sans-serif" font-size="24" font-weight="700" letter-spacing="5">公式WEBサイト</text>
+    <text x="74" y="526" fill="#c9a34a" font-family="Shippori Mincho, Noto Serif JP, serif" font-size="24" font-weight="700" letter-spacing="5">公式WEBサイト</text>
   </svg>
 `);
 

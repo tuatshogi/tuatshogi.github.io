@@ -1,23 +1,19 @@
 import FeatureCard from "./FeatureCard";
 import { features } from "../../data/siteConfig";
+import SectionHeading from "./SectionHeading";
 
 export default function AboutSection() {
   return (
-    <section className="relative border-t border-line/70 bg-[#f1f4f1] py-20 md:py-28" aria-labelledby="about-title">
-      <div className="mx-auto max-w-site px-5 md:px-8 lg:px-12">
-        <header className="mx-auto max-w-2xl text-center">
-          <p className="text-xs font-bold tracking-[0.28em] text-navy"></p>
-          <h2 id="about-title" className="mt-4 font-mincho text-3xl font-bold tracking-[0.06em] text-sumi md:text-5xl">
-            新入部員、募集中。
-          </h2>
-          <p className="mt-6 text-base leading-8 text-ink/70 md:text-lg">
-          </p>
-        </header>
+    <section className="home-screen-section recruitment-section" aria-labelledby="about-title" data-stagger-group>
+      <div className="home-section-inner">
+        <SectionHeading number="02" label="JOIN US" id="about-title" aside={
+          <><p>初心者から経験者まで。</p><a className="home-editorial-link" href="/entry.html">入部案内をみる<span aria-hidden="true">↗</span></a></>
+        }><span>新入部員</span><span>募集中</span></SectionHeading>
 
-        <ul className="mt-12 grid gap-5 md:mt-16 md:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-8">
-          {features.map((feature) => (
-            <li key={feature.id}>
-              <FeatureCard {...feature} />
+        <ul className="recruitment-piece-grid">
+          {features.map((feature, index) => (
+            <li key={feature.id} data-stagger-item>
+              <FeatureCard {...feature} number={String(index + 1).padStart(2, "0")} />
             </li>
           ))}
         </ul>

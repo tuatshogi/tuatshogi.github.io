@@ -10,6 +10,8 @@
     "prepare:site": "node scripts/restore-templates.mjs && node scripts/optimize-images.mjs && node scripts/prerender-pages.mjs",
     "predev": "npm run prepare:site",
     "dev": "vite",
+    "build:hero-intro": "vite build --config vite.hero-intro.config.js",
+    "preview:hero-intro": "vite preview --config vite.hero-intro.config.js",
     "prebuild": "npm run prepare:site",
     "build": "vite build && node scripts/generate-seo-files.mjs && node scripts/deploy-root.mjs",
     "preview": "vite preview",
